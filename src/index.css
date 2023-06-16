@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=BioRhyme:wght@300;400&family=Poppins:wght@300;400&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  nav ul li {
+    @apply text-[1.1rem];
+  }
+  nav ul button {
+    @apply text-[1.1rem];
+  }
+}
+
+body {
+  width: 100vw;
+  overflow-x: hidden;
+}
