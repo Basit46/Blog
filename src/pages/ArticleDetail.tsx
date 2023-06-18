@@ -88,7 +88,10 @@ const ArticleDetail = () => {
           molestias tenetur eum dolorum eligendi rem autem, numquam consequuntur
           optio iusto alias? Animi sit architecto in delectus! Facilis soluta
           aliquid, tempora nostrum repellat cumque sequi dolorum fugiat quis rem
-          modi qui reiciendis odit dolorem dolor suscipit et!
+          modi qui reiciendis odit dolorem dolor suscipit et! Lorem ipsum dolor
+          sit amet consectetur, adipisicing elit. Obcaecati voluptatum non
+          expedita asperiores adipisci, ipsum omnis! Molestias voluptatum
+          adipisci id.
         </p>
       </div>
     </div>
