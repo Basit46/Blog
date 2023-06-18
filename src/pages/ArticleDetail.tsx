@@ -11,8 +11,8 @@ const ArticleDetail = () => {
       </div>
       <div className="mt-[20px] px-[80px] pb-[50px]">
         <h1 className="font-bioRhyme text-[2.5rem] font-bold leading-[1]">
-          The past, the future and now: diving throught the trends of street
-          lights. Also, whats the next step?
+          The past, the future and now: Diving throught the trends of street
+          lights. Also, what is the next step?
         </h1>
         <div className="mt-[20px] mb-[30px] flex items-center gap-[10px]">
           <div className="flex items-center">
