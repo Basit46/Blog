@@ -1,5 +1,8 @@
+import { useAuthContext } from "../context/authContext";
+
 const UserProfile = () => {
-  return <div>UserProfile</div>;
+  const { user } = useAuthContext();
+  return <div>UserProfile of {user?.name}</div>;
 };
 
 export default UserProfile;

@@ -5,6 +5,8 @@ import Navbar from "./components/Navbar";
 import WriteArticle from "./pages/WriteArticle";
 import UserProfile from "./pages/UserProfile";
 import ArticleDetail from "./pages/ArticleDetail";
+import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="/articles/:id" element={<ArticleDetail />} />
         <Route path="/write" element={<WriteArticle />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
       </Routes>
     </div>
   );
