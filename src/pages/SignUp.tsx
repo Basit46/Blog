@@ -7,13 +7,11 @@ import { useAuthContext } from "../context/authContext";
 const SignUp = () => {
   const { signup } = useAuthContext();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [details, setDetails] = useState({ name: "", email: "", password: "" });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signup(name, email, password);
+    signup(details.name, details.email, details.password);
   };
 
   return (
@@ -35,9 +33,9 @@ const SignUp = () => {
             className="w-full border-[2px] border-black/40 py-[5px] px-[10px]"
             type="text"
             required
-            value={name}
+            value={details.name}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setName(e.target.value);
+              setDetails({ ...details, name: e.target.value });
             }}
             placeholder="Name"
           />
@@ -45,9 +43,9 @@ const SignUp = () => {
             className="w-full border-[2px] border-black/40 py-[5px] px-[10px]"
             type="email"
             required
-            value={email}
+            value={details.email}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setEmail(e.target.value);
+              setDetails({ ...details, email: e.target.value });
             }}
             placeholder="Email"
           />
@@ -55,9 +53,9 @@ const SignUp = () => {
             className="w-full border-[2px] border-black/40 py-[5px] px-[10px]"
             type="password"
             required
-            value={password}
+            value={details.password}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setPassword(e.target.value);
+              setDetails({ ...details, password: e.target.value });
             }}
             placeholder="Password"
           />

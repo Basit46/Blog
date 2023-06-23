@@ -1,4 +1,6 @@
-import React, { createContext, useReducer, useContext } from "react";
+import React, { createContext, useReducer, useContext, useEffect } from "react";
+import { onSnapshot, collection } from "firebase/firestore";
+import { db } from "../firebase";
 
 const ArticleContext = createContext({} as ArticleContextType);
 
@@ -19,7 +21,7 @@ type ArticleContextProviderProp = {
   children: React.ReactNode;
 };
 
-type ArticleType = {
+export type ArticleType = {
   id: number;
   author: string;
   authorId: string;
@@ -31,8 +33,8 @@ type ArticleType = {
 };
 
 type ActionType = {
-  type: "add";
-  payload: ArticleType;
+  type: "addArticle";
+  payload: any;
 };
 
 type ArticleContextType = {
@@ -42,7 +44,7 @@ type ArticleContextType = {
 
 const reducer = (state: ArticleType[], action: ActionType) => {
   switch (action.type) {
-    case "add":
+    case "addArticle":
       return [...state, action.payload];
     default:
       return state;
@@ -51,6 +53,25 @@ const reducer = (state: ArticleType[], action: ActionType) => {
 
 const ArticleContextProvider = ({ children }: ArticleContextProviderProp) => {
   const [articles, dispatch] = useReducer(reducer, initialState);
+
+  console.log(articles);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const colRef = collection(db, "articles");
+
+      const unsubscribe = onSnapshot(colRef, (snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          dispatch({ type: "addArticle", payload: { ...doc.data() } });
+          console.log(doc.data());
+        });
+      });
+
+      return () => unsubscribe();
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <ArticleContext.Provider value={{ articles, dispatch }}>

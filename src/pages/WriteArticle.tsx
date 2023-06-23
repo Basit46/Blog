@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { FaPlus } from "react-icons/fa";
+import { useArticleContext } from "../context/articlesContext";
 
 const categories = [
   "View all",
@@ -13,6 +14,8 @@ const categories = [
 ];
 
 const WriteArticle = () => {
+  const {} = useArticleContext();
+
   const [content, setContent] = useState("");
 
   const handleEditorChange = (value: string) => {
@@ -26,6 +29,8 @@ const WriteArticle = () => {
 
     setSelectedImage(file ? URL.createObjectURL(file) : null);
   };
+
+  const addArticle = () => {};
 
   return (
     <div className="px-[40px] py-[40px]">
@@ -52,8 +57,10 @@ const WriteArticle = () => {
           </div>
 
           <select className="w-full border-black border-[2px]">
-            {categories.map((category) => (
-              <option value={category}>{category}</option>
+            {categories.map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
             ))}
           </select>
 
@@ -86,7 +93,10 @@ const WriteArticle = () => {
         </div>
       </div>
 
-      <button className="mt-[30px] w-full bg-green-600 text-white py-[10px] text-[1.5rem] flex justify-center items-center gap-[5px] ">
+      <button
+        onClick={addArticle}
+        className="mt-[30px] w-full bg-green-600 text-white py-[10px] text-[1.5rem] flex justify-center items-center gap-[5px] "
+      >
         ADD ARTICLE <FaPlus />
       </button>
     </div>

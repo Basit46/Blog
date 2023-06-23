@@ -36,7 +36,7 @@ const AuthContextProvider = ({ children }: AuthContextProviderProp) => {
   React.useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       if (currentUser) {
-        console.log(currentUser);
+        // console.log(currentUser);
         setUser({
           id: currentUser?.uid,
           name: currentUser?.displayName,
@@ -50,7 +50,7 @@ const AuthContextProvider = ({ children }: AuthContextProviderProp) => {
         });
       }
 
-      console.log(user);
+      // console.log(user);
     });
 
     // Clean up the subscription when the component unmounts
