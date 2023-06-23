@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { FaPlus } from "react-icons/fa";
-import { useArticleContext } from "../context/articlesContext";
 
 const categories = [
   "View all",
@@ -14,23 +13,36 @@ const categories = [
 ];
 
 const WriteArticle = () => {
-  const {} = useArticleContext();
-
-  const [content, setContent] = useState("");
+  const [bookDetails, setBookDetails] = useState({
+    title: "",
+    desc: "",
+    body: "",
+    categ: "",
+  });
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const handleEditorChange = (value: string) => {
-    setContent(value);
+    setBookDetails({ ...bookDetails, body: value });
   };
-
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-
     setSelectedImage(file ? URL.createObjectURL(file) : null);
   };
 
-  const addArticle = () => {};
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBookDetails({ ...bookDetails, title: e.target.value });
+  };
+  const handleDescChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBookDetails({ ...bookDetails, desc: e.target.value });
+  };
+  const handleCategChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setBookDetails({ ...bookDetails, categ: e.target.value });
+  };
+
+  const addArticle = () => {
+    console.log(bookDetails);
+  };
 
   return (
     <div className="px-[40px] py-[40px]">
@@ -42,6 +54,8 @@ const WriteArticle = () => {
               id="title"
               className="w-full border-[#c0bfbf] border-[2px] px-[20px] py-[10px]"
               placeholder="The Art of Cooking"
+              value={bookDetails.title}
+              onChange={handleTitleChange}
               type="text"
             />
           </div>
@@ -53,10 +67,15 @@ const WriteArticle = () => {
               className="w-full border-[#c0bfbf] border-[2px] px-[20px] py-[10px]"
               placeholder="Cooking is art, this article with take you on how to improve your cookings"
               type="text"
+              value={bookDetails.desc}
+              onChange={handleDescChange}
             />
           </div>
 
-          <select className="w-full border-black border-[2px]">
+          <select
+            onChange={handleCategChange}
+            className="w-full border-black border-[2px]"
+          >
             {categories.map((category, index) => (
               <option key={index} value={category}>
                 {category}
@@ -86,7 +105,7 @@ const WriteArticle = () => {
           <div className="h-[70vh] w-full">
             <ReactQuill
               style={{ height: "100%" }}
-              value={content}
+              value={bookDetails.body}
               onChange={handleEditorChange}
             />
           </div>

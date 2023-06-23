@@ -19,9 +19,7 @@ const Article = ({ article }: ArticlePropType) => {
         <h1 className="font-semibold text-[1.1rem] leading-[1.2]">
           {article.title}
         </h1>
-        <p className="mt-[5px] text-[0.8rem] mb-[10px]">
-          {article.body.slice(0, 10)}
-        </p>
+        <p className="mt-[5px] text-[0.8rem] mb-[10px]">{article.desc}</p>
         <p className="font-semibold leading-none">{article.author}</p>
         <p className="opacity-90 text-[0.8rem]">{article.time}</p>
       </div>

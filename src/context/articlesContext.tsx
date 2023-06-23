@@ -14,6 +14,7 @@ const initialState: ArticleType[] = [
     img: "img1",
     time: "2023",
     title: "How To Cook",
+    desc: "cook1",
   },
 ];
 
@@ -30,6 +31,7 @@ export type ArticleType = {
   img: string;
   time: string;
   title: string;
+  desc: string;
 };
 
 type ActionType = {
