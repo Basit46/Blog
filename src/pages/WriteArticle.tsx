@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { FaPlus } from "react-icons/fa";
+import { db } from "../firebase";
+import { collection, addDoc } from "firebase/firestore";
+import { useAuthContext } from "../context/authContext";
+import { v4 as uuidv4 } from "uuid";
+import { storage } from "../firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const categories = [
   "View all",
@@ -13,13 +19,16 @@ const categories = [
 ];
 
 const WriteArticle = () => {
+  const { user } = useAuthContext();
+
   const [bookDetails, setBookDetails] = useState({
     title: "",
     desc: "",
     body: "",
     categ: "",
+    img: "",
   });
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<any>(null);
 
   const handleEditorChange = (value: string) => {
     setBookDetails({ ...bookDetails, body: value });
@@ -40,8 +49,46 @@ const WriteArticle = () => {
     setBookDetails({ ...bookDetails, categ: e.target.value });
   };
 
-  const addArticle = () => {
-    console.log(bookDetails);
+  const addimg = () => {
+    if (!selectedImage) {
+      alert("Please upload an image first!");
+    } else {
+      const storageRef = ref(storage, `/files/${bookDetails.title}img`);
+
+      const uploadTask = uploadBytesResumable(storageRef, selectedImage);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {},
+        (err) => console.log(err),
+        () => {
+          // download url
+          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            setBookDetails({ ...bookDetails, img: url });
+          });
+        }
+      );
+    }
+  };
+
+  const addArticle = async () => {
+    await addimg();
+    const colRef = collection(db, "articles");
+
+    const currTime = new Date();
+    const timeStamp = currTime.toLocaleString();
+
+    addDoc(colRef, {
+      id: uuidv4(),
+      author: user.name,
+      authorId: user.id,
+      body: bookDetails.body,
+      category: bookDetails.categ,
+      img: bookDetails.img,
+      time: timeStamp,
+      title: bookDetails.title,
+      desc: bookDetails.desc,
+    });
   };
 
   return (
