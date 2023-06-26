@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { FaPlus } from "react-icons/fa";
@@ -8,18 +9,23 @@ import { useAuthContext } from "../context/authContext";
 import { v4 as uuidv4 } from "uuid";
 import { storage } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { useArticleContext } from "../context/articlesContext";
 
 const categories = ["Design", "Food", "Politics", "Sport", "Others"];
 
 const WriteArticle = () => {
-  const { user } = useAuthContext();
+  const navigate = useNavigate();
 
-  //states
+  //Global states
+  const { user } = useAuthContext();
+  const { setOpenLoader } = useArticleContext();
+
+  //local states
   const [bookDetails, setBookDetails] = useState({
     title: "",
     desc: "",
     body: "",
-    categ: "",
+    categ: "Design",
     img: "",
   });
   const [selectedImage, setSelectedImage] = useState<any>(null);
@@ -57,12 +63,16 @@ const WriteArticle = () => {
       return;
     }
 
+    setOpenLoader(true);
     const storageRef = ref(storage, `/files/${bookDetails.title}img`);
     const uploadTask = uploadBytesResumable(storageRef, selectedImage);
     uploadTask.on(
       "state_changed",
       () => {},
-      (err) => console.log(err),
+      (err) => {
+        console.log(err);
+        setOpenLoader(false);
+      },
       () => {
         // download url
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
@@ -82,6 +92,9 @@ const WriteArticle = () => {
             title: bookDetails.title,
             desc: bookDetails.desc,
           });
+
+          setOpenLoader(false);
+          navigate("/articles");
         });
       }
     );
