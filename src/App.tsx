@@ -7,6 +7,7 @@ import UserProfile from "./pages/UserProfile";
 import ArticleDetail from "./pages/ArticleDetail";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
       </Routes>
+      <LoadingSpinner />
     </div>
   );
 }

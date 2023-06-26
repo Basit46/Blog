@@ -1,4 +1,10 @@
-import React, { createContext, useReducer, useContext, useEffect } from "react";
+import React, {
+  createContext,
+  useReducer,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { onSnapshot, collection } from "firebase/firestore";
 import { db } from "../firebase";
 
@@ -11,7 +17,7 @@ type ArticleContextProviderProp = {
 };
 
 export type ArticleType = {
-  id: number;
+  id: number | string;
   author: string;
   authorId: string;
   body: string;
@@ -30,6 +36,8 @@ type ActionType = {
 type ArticleContextType = {
   articles: ArticleType[];
   dispatch: React.Dispatch<ActionType>;
+  openLoader: boolean;
+  setOpenLoader: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const reducer = (state: ArticleType[], action: ActionType) => {
@@ -43,6 +51,7 @@ const reducer = (state: ArticleType[], action: ActionType) => {
 };
 
 const ArticleContextProvider = ({ children }: ArticleContextProviderProp) => {
+  const [openLoader, setOpenLoader] = useState(false);
   const [articles, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -64,7 +73,9 @@ const ArticleContextProvider = ({ children }: ArticleContextProviderProp) => {
   }, []);
 
   return (
-    <ArticleContext.Provider value={{ articles, dispatch }}>
+    <ArticleContext.Provider
+      value={{ articles, dispatch, openLoader, setOpenLoader }}
+    >
       {children}
     </ArticleContext.Provider>
   );

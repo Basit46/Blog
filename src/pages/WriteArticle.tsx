@@ -9,18 +9,12 @@ import { v4 as uuidv4 } from "uuid";
 import { storage } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
-const categories = [
-  "View all",
-  "Design",
-  "Food",
-  "Politics",
-  "Sport",
-  "Others",
-];
+const categories = ["Design", "Food", "Politics", "Sport", "Others"];
 
 const WriteArticle = () => {
   const { user } = useAuthContext();
 
+  //states
   const [bookDetails, setBookDetails] = useState({
     title: "",
     desc: "",
@@ -31,16 +25,15 @@ const WriteArticle = () => {
   const [selectedImage, setSelectedImage] = useState<any>(null);
   const [imgToView, setImgToView] = useState<any>(null);
 
+  //State change handler functions
   const handleEditorChange = (value: string) => {
     setBookDetails({ ...bookDetails, body: value });
   };
-
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     setSelectedImage(file ? file : null);
     setImgToView(file ? URL.createObjectURL(file) : null);
   };
-
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBookDetails({ ...bookDetails, title: e.target.value });
   };
@@ -51,13 +44,24 @@ const WriteArticle = () => {
     setBookDetails({ ...bookDetails, categ: e.target.value });
   };
 
+  //Add new article function
   const addArticle = async () => {
+    if (
+      bookDetails.body === "" ||
+      bookDetails.title === "" ||
+      bookDetails.desc === "" ||
+      bookDetails.categ === "" ||
+      selectedImage === ""
+    ) {
+      alert("Enter appropriate values");
+      return;
+    }
+
     const storageRef = ref(storage, `/files/${bookDetails.title}img`);
     const uploadTask = uploadBytesResumable(storageRef, selectedImage);
-
     uploadTask.on(
       "state_changed",
-      (snapshot) => {},
+      () => {},
       (err) => console.log(err),
       () => {
         // download url
@@ -162,10 +166,3 @@ const WriteArticle = () => {
 };
 
 export default WriteArticle;
-
-{
-  /* <div>
-  <h3>Rendered Content:</h3>
-  <div dangerouslySetInnerHTML={{ __html: content }} />
-</div>; */
-}
