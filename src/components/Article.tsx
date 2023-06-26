@@ -7,7 +7,7 @@ type ArticlePropType = {
 const Article = ({ article }: ArticlePropType) => {
   return (
     <div className="w-[300px] h-fit">
-      <div className="h-[150px] w-full object-cover bg-[red]">
+      <div className="h-[150px] w-full object-cover bg-blue-300">
         <img
           className="h-full w-full object-cover"
           src={article?.img}

@@ -29,6 +29,7 @@ const WriteArticle = () => {
     img: "",
   });
   const [selectedImage, setSelectedImage] = useState<any>(null);
+  const [imgToView, setImgToView] = useState<any>(null);
 
   const handleEditorChange = (value: string) => {
     setBookDetails({ ...bookDetails, body: value });
@@ -36,7 +37,8 @@ const WriteArticle = () => {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    setSelectedImage(file ? URL.createObjectURL(file) : null);
+    setSelectedImage(file ? file : null);
+    setImgToView(file ? URL.createObjectURL(file) : null);
   };
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,46 +51,36 @@ const WriteArticle = () => {
     setBookDetails({ ...bookDetails, categ: e.target.value });
   };
 
-  const addimg = () => {
-    if (!selectedImage) {
-      alert("Please upload an image first!");
-    } else {
-      const storageRef = ref(storage, `/files/${bookDetails.title}img`);
-
-      const uploadTask = uploadBytesResumable(storageRef, selectedImage);
-
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {},
-        (err) => console.log(err),
-        () => {
-          // download url
-          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-            setBookDetails({ ...bookDetails, img: url });
-          });
-        }
-      );
-    }
-  };
-
   const addArticle = async () => {
-    await addimg();
-    const colRef = collection(db, "articles");
+    const storageRef = ref(storage, `/files/${bookDetails.title}img`);
+    const uploadTask = uploadBytesResumable(storageRef, selectedImage);
 
-    const currTime = new Date();
-    const timeStamp = currTime.toLocaleString();
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {},
+      (err) => console.log(err),
+      () => {
+        // download url
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          const colRef = collection(db, "articles");
 
-    addDoc(colRef, {
-      id: uuidv4(),
-      author: user.name,
-      authorId: user.id,
-      body: bookDetails.body,
-      category: bookDetails.categ,
-      img: bookDetails.img,
-      time: timeStamp,
-      title: bookDetails.title,
-      desc: bookDetails.desc,
-    });
+          const currTime = new Date();
+          const timeStamp = currTime.toLocaleString();
+
+          addDoc(colRef, {
+            id: uuidv4(),
+            author: user.name,
+            authorId: user.id,
+            body: bookDetails.body,
+            category: bookDetails.categ,
+            img: url,
+            time: timeStamp,
+            title: bookDetails.title,
+            desc: bookDetails.desc,
+          });
+        });
+      }
+    );
   };
 
   return (
@@ -138,7 +130,7 @@ const WriteArticle = () => {
                 <div className="absolute top-0 left-0 w-full h-full">
                   <img
                     className="h-full w-full object-cover"
-                    src={selectedImage}
+                    src={imgToView}
                     alt="Selected"
                   />
                 </div>
