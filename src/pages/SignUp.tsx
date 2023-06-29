@@ -1,17 +1,33 @@
 import React, { useState } from "react";
 import welcomeImg from "../assets/city.jpg";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/authContext";
+import { useArticleContext } from "../context/articlesContext";
 
 const SignUp = () => {
   const { signup } = useAuthContext();
+  const { setOpenLoader } = useArticleContext();
+  const navigate = useNavigate();
 
   const [details, setDetails] = useState({ name: "", email: "", password: "" });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (
+      details.name === "" ||
+      details.email === "" ||
+      details.password === ""
+    ) {
+      alert("Enter appropriate values");
+      return;
+    }
+
+    setOpenLoader(true);
     signup(details.name, details.email, details.password);
+    setOpenLoader(false);
+    navigate("/articles");
   };
 
   return (

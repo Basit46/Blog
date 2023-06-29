@@ -1,18 +1,30 @@
 import welcomeImg from "../assets/city.jpg";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuthContext } from "../context/authContext";
+import { useArticleContext } from "../context/articlesContext";
 
 const SignIn = () => {
   const { signin } = useAuthContext();
+  const { setOpenLoader } = useArticleContext();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (email === "" || password === "") {
+      alert("Enter appropriate values");
+      return;
+    }
+
+    setOpenLoader(true);
     await signin(email, password);
+    setOpenLoader(false);
+    navigate("/articles");
     setEmail("");
     setPassword("");
   };

@@ -33,9 +33,21 @@ const UserProfile = () => {
         <h1 className="text-[2rem] font-bioRhyme font-semibold">
           Hello {user.name}!
         </h1>
-        <h1 className="text-[1.2rem] font-bioRhyme">
-          Here is a list of your {userArticles?.length} blog posts so far:
-        </h1>
+        {userArticles && userArticles?.length < 1 ? (
+          <h1 className="text-[1.2rem] font-bioRhyme">
+            You have <span className="text-red-600">zero blog articles</span>.
+            You can start{" "}
+            <Link to="/write" className="text-blue-600 underline">
+              writing
+            </Link>{" "}
+            now
+          </h1>
+        ) : (
+          <h1 className="text-[1.2rem] font-bioRhyme">
+            Here is a list of your {userArticles?.length} article(s) so far:
+          </h1>
+        )}
+
         <ul className="mt-[20px]">
           {userArticles?.map((article, index) => (
             <li

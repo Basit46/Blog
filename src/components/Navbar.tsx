@@ -1,14 +1,19 @@
 import { CgPen } from "react-icons/cg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/authContext";
 
 const Navbar = () => {
   const { user, signout } = useAuthContext();
+  const navigate = useNavigate();
   return (
     <nav className="w-full px-[40px] h-[12vh] flex justify-between items-center">
-      <h1 className="font-bioRhyme font-bold text-[2.5rem] leading-none">
+      <h1
+        onClick={() => navigate("/")}
+        className="font-bioRhyme font-bold text-[2.5rem] leading-none cursor-pointer"
+      >
         Verso
       </h1>
+
       <ul className="flex items-center gap-[20px]">
         <NavLink to="/articles">Articles</NavLink>
         {user.id ? (
