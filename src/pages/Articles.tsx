@@ -1,26 +1,56 @@
+import { useState, useEffect } from "react";
 import Article from "../components/Article";
-import { useArticleContext } from "../context/articlesContext";
+import { ArticleType, useArticleContext } from "../context/articlesContext";
+
+const categories = [
+  "View all",
+  "Design",
+  "Food",
+  "Politics",
+  "Sport",
+  "Others",
+];
 
 const Articles = () => {
   const { articles } = useArticleContext();
 
-  const links = ["View all", "Design", "Food", "Politics", "Sport", "Others"];
+  const [selectedCateg, setSelectedCateg] = useState("View all");
+  const [articlesToRender, setArticlesToRender] = useState<ArticleType[]>();
+
+  useEffect(() => {
+    setArticlesToRender(articles);
+  }, [articles]);
+
+  useEffect(() => {
+    if (selectedCateg == "View all") {
+      setArticlesToRender(articles);
+      return;
+    }
+
+    setArticlesToRender(
+      articles.filter((article) => article.category === selectedCateg)
+    );
+  }, [selectedCateg]);
+
   return (
     <div className="w-full px-[40px] flex gap-[30px]">
       <div className="w-[10%] fixed top-[13vh]">
-        {links.map((link, index) => (
+        {categories.map((category, index) => (
           <div
             key={index}
-            className="mb-[10px] border-[grey] border-l-2 block py-[5px] pl-[10px] text-[1.1rem] hover:font-bold hover:border-black cursor-pointer"
+            onClick={() => setSelectedCateg(category)}
+            className={`${
+              selectedCateg === category && "bg-black text-white"
+            } mb-[10px] block  px-[15px] py-[5px] text-[1.1rem] cursor-pointer`}
           >
-            {link}
+            {category}
           </div>
         ))}
       </div>
 
       <div className="ml-[14%] flex-1 flex flex-wrap gap-[30px]">
-        {articles &&
-          articles.map((article, index) => (
+        {articlesToRender &&
+          articlesToRender.map((article, index) => (
             <Article key={index} article={article} />
           ))}
       </div>
