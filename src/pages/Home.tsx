@@ -23,7 +23,7 @@ const Home = () => {
 
   useEffect(() => {
     setSelectedArticle(articles[Math.round(Math.random() * articles.length)]);
-  }, []);
+  }, [articles]);
 
   return (
     <div className="px-[40px]">
