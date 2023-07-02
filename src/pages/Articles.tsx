@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Article from "../components/Article";
 import { ArticleType, useArticleContext } from "../context/articlesContext";
+import Preloader from "../components/Preloader";
 
 const categories = [
   "View all",
@@ -49,6 +50,10 @@ const Articles = () => {
       </div>
 
       <div className="ml-[14%] flex-1 flex flex-wrap gap-[30px]">
+        {articles.length < 1 && (
+          <h1 className="font-bold text-[2rem]">Loading...</h1>
+        )}
+
         {articlesToRender &&
           articlesToRender.map((article, index) => (
             <Article key={index} article={article} />

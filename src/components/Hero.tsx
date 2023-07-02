@@ -3,7 +3,7 @@ import { TiArrowDownOutline } from "react-icons/ti";
 
 const Hero = () => {
   return (
-    <div className="relative h-[87vh] w-full pb-[30px]">
+    <div className="mt-[30px] relative h-[87vh] w-full pb-[30px]">
       <div className="w-full h-full rounded-[20px] overflow-hidden">
         <img className="w-full h-full object-cover" src={bgImage} alt="bg" />
       </div>

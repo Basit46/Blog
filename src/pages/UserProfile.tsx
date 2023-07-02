@@ -1,35 +1,31 @@
 import { useAuthContext } from "../context/authContext";
-import header from "../assets/profileHeader.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useArticleContext } from "../context/articlesContext";
 
 const UserProfile = () => {
+  const navigate = useNavigate();
   const { user } = useAuthContext();
   const { articles } = useArticleContext();
 
   const [userArticles, setUserArticles] = useState<any[] | undefined>();
 
   useEffect(() => {
+    if (user.id === null) {
+      navigate("/articles");
+      return;
+    }
+  }, [user]);
+
+  useEffect(() => {
     setUserArticles(articles.filter((article) => article.authorId == user.id));
   }, []);
 
   return (
-    <div className="px-[40px]">
-      <div className="relative">
-        <div className="w-full h-[200px]">
-          <img
-            className="w-full h-full object-cover"
-            src={header}
-            alt="header"
-          />
-        </div>
-        <div className="absolute h-[200px] w-[200px] rounded-full bottom-[-100px] left-[50px] bg-[grey] grid place-items-center">
-          H
-        </div>
-      </div>
+    <div className="px-[40px] h-[84vh] w-full flex gap-[80px]">
+      <div className="h-full w-[30%] bg-black"></div>
 
-      <div className="ml-[300px]">
+      <div className="flex-1 mt-[40px]">
         <h1 className="text-[2rem] font-bioRhyme font-semibold">
           Hello {user.name}!
         </h1>

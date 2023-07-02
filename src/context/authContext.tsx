@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { auth } from "../firebase";
 import {
   createUserWithEmailAndPassword,
@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = React.createContext({} as AuthContextProp);
 
@@ -27,6 +28,7 @@ type UserType = {
 };
 
 const AuthContextProvider = ({ children }: AuthContextProviderProp) => {
+  const navigate = useNavigate();
   const [user, setUser] = React.useState<UserType>({
     name: null,
     email: null,
@@ -55,23 +57,34 @@ const AuthContextProvider = ({ children }: AuthContextProviderProp) => {
     };
   }, []);
 
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
   const signup = (name: string, email: string, password: string) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((res) => {
         const resUser = res?.user;
+
         updateProfile(resUser, {
           displayName: name,
         });
+        window.location.reload();
       })
       .catch((err) => console.error("Error", err))
       .finally(() => {});
   };
 
-  const signin = (email: string, password: string) => {
-    signInWithEmailAndPassword(auth, email, password).catch((err) =>
-      console.error("Error", err)
-    );
+  const signin = async (email: string, password: string) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate("/articles");
+    } catch (err: any) {
+      console.error(err.message);
+      return [false, err.message];
+    }
   };
+
   const signout = () => {
     signOut(auth);
   };

@@ -7,13 +7,13 @@ import AuthContextProvider from "./context/authContext.tsx";
 import ArticleContextProvider from "./context/articlesContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <AuthContextProvider>
-    <ArticleContextProvider>
-      <React.StrictMode>
-        <BrowserRouter>
+  <BrowserRouter>
+    <AuthContextProvider>
+      <ArticleContextProvider>
+        <React.StrictMode>
           <App />
-        </BrowserRouter>
-      </React.StrictMode>
-    </ArticleContextProvider>
-  </AuthContextProvider>
+        </React.StrictMode>
+      </ArticleContextProvider>
+    </AuthContextProvider>
+  </BrowserRouter>
 );

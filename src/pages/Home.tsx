@@ -1,14 +1,20 @@
-import Article from "../components/Article";
+import { useState, useEffect } from "react";
 import FeaturedArticle from "../components/FeaturedArticle";
 import Hero from "../components/Hero";
+import { ArticleType, useArticleContext } from "../context/articlesContext";
+import ArticlesSlide from "../components/ArticlesSlide";
 
 const Home = () => {
+  const { articles } = useArticleContext();
+  const [selectedArticle, setSelectedArticle] = useState<ArticleType>();
+
+  useEffect(() => {
+    setSelectedArticle(articles[Math.round(Math.random() * articles.length)]);
+  }, []);
+
   return (
     <div className="px-[40px]">
-      <Hero />
-
-      <div className="py-[30px] border-y-[3px] border-gray-600">
-        <h1 className="font-bioRhyme text-[1.5rem]">Verso</h1>
+      <div className="py-[30px] border-b-[2px] border-gray-600">
         <p className="mt-[10px] mb-[20px] font-bioRhyme font-semibold text-[3.5rem] leading-none">
           Insights & Advice from experts
         </p>
@@ -18,18 +24,18 @@ const Home = () => {
         </p>
       </div>
 
-      <div className="py-[30px] w-full border-b-[3px] border-gray-600">
-        <FeaturedArticle />
-      </div>
-      <div className="w-full py-[30px] flex flex-wrap gap-[20px] justify-center ">
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
+      <Hero />
+
+      <div className="py-[30px] w-full  flex gap-[10px] ">
+        <FeaturedArticle selectedArticle={selectedArticle} />
+
+        <div className="bg-[green] flex-1 w-[500px] h-[300px] overflow-x-scroll">
+          <div className="w-fit h-full bg-blue-500 flex ">
+            {articles.map((article, index) => (
+              <ArticlesSlide key={index} article={article} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

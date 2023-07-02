@@ -11,19 +11,14 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const [details, setDetails] = useState({ name: "", email: "", password: "" });
+  const [passwordError, setPasswordError] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (
-      details.name === "" ||
-      details.email === "" ||
-      details.password === ""
-    ) {
-      alert("Enter appropriate values");
+    if (details.password.length < 6) {
+      setPasswordError(true);
       return;
     }
-
     setOpenLoader(true);
     signup(details.name, details.email, details.password);
     setOpenLoader(false);
@@ -66,15 +61,23 @@ const SignUp = () => {
             placeholder="Email"
           />
           <input
-            className="w-full border-[2px] border-black/40 py-[5px] px-[10px]"
+            className={`${
+              passwordError ? "border-[red]" : "border-black/40"
+            } w-full border-[2px] py-[5px] px-[10px]`}
             type="password"
             required
             value={details.password}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setDetails({ ...details, password: e.target.value });
+              setPasswordError(false);
             }}
             placeholder="Password"
           />
+          {passwordError && (
+            <p className="text-[red] font-medium text-center">
+              Password should be at least 6 characters
+            </p>
+          )}
           <button className="w-full text-white text-[1.3rem] bg-black  py-[10px]">
             CREATE ACCOUNT
           </button>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -19,6 +19,13 @@ const WriteArticle = () => {
   //Global states
   const { user } = useAuthContext();
   const { setOpenLoader } = useArticleContext();
+
+  useEffect(() => {
+    if (user.id == null) {
+      navigate("/articles");
+      return;
+    }
+  }, [user]);
 
   //local states
   const [bookDetails, setBookDetails] = useState({

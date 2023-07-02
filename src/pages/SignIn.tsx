@@ -1,6 +1,6 @@
 import welcomeImg from "../assets/city.jpg";
 import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useAuthContext } from "../context/authContext";
 import { useArticleContext } from "../context/articlesContext";
@@ -8,23 +8,25 @@ import { useArticleContext } from "../context/articlesContext";
 const SignIn = () => {
   const { signin } = useAuthContext();
   const { setOpenLoader } = useArticleContext();
-  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [signInError, setSignInError] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     if (email === "" || password === "") {
       alert("Enter appropriate values");
       return;
     }
-
     setOpenLoader(true);
-    await signin(email, password);
+    const res: any = await signin(email, password);
+    console.log(res);
     setOpenLoader(false);
-    navigate("/articles");
+    if (!res?.[0]) {
+      setSignInError(true);
+      return;
+    }
     setEmail("");
     setPassword("");
   };
@@ -45,25 +47,36 @@ const SignIn = () => {
         </p>
         <form onSubmit={handleSubmit} className="flex flex-col gap-[20px]">
           <input
-            className="w-full border-[2px] border-black/40 py-[5px] px-[10px]"
+            className={`${
+              signInError ? "border-[red]" : "border-black/40"
+            } w-full border-[2px] border-black/40 py-[5px] px-[10px]`}
             type="email"
             required
             value={email}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setEmail(e.target.value);
+              setSignInError(false);
             }}
             placeholder="Email"
           />
           <input
-            className="w-full border-[2px] border-black/40 py-[5px] px-[10px]"
+            className={`${
+              signInError ? "border-[red]" : "border-black/40"
+            } w-full border-[2px] border-black/40 py-[5px] px-[10px]`}
             type="password"
             required
             value={password}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setPassword(e.target.value);
+              setSignInError(false);
             }}
             placeholder="Password"
           />
+          {signInError && (
+            <p className="text-red-600 text-center font-medium">
+              Account does not exist or incorrect password
+            </p>
+          )}
           <button className="w-full text-white text-[1.3rem] bg-black  py-[10px]">
             SIGN IN
           </button>
