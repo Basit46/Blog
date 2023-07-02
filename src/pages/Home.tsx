@@ -3,6 +3,19 @@ import FeaturedArticle from "../components/FeaturedArticle";
 import Hero from "../components/Hero";
 import { ArticleType, useArticleContext } from "../context/articlesContext";
 import ArticlesSlide from "../components/ArticlesSlide";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+const settings = {
+  dots: false,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  arrows: false,
+  autoplay: true,
+};
 
 const Home = () => {
   const { articles } = useArticleContext();
@@ -29,12 +42,12 @@ const Home = () => {
       <div className="py-[30px] w-full  flex gap-[10px] ">
         <FeaturedArticle selectedArticle={selectedArticle} />
 
-        <div className="bg-[green] flex-1 w-[500px] h-[300px] overflow-x-scroll">
-          <div className="w-fit h-full bg-blue-500 flex ">
+        <div className="bg-[green] flex-1 w-[500px] h-[300px] overflow-hidden ">
+          <Slider {...settings} className="w-[500px] h-[300px]">
             {articles.map((article, index) => (
               <ArticlesSlide key={index} article={article} />
             ))}
-          </div>
+          </Slider>
         </div>
       </div>
     </div>
