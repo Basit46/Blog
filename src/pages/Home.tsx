@@ -26,9 +26,9 @@ const Home = () => {
   }, [articles]);
 
   return (
-    <div className="px-[40px]">
+    <div className="px-[20px] sm:px-[40px]">
       <div className="py-[30px] border-b-[2px] border-gray-600">
-        <p className="mt-[10px] mb-[20px] font-bioRhyme font-semibold text-[3.5rem] leading-none">
+        <p className="mt-[10px] mb-[20px] font-bioRhyme font-semibold text-[3rem] md:text-[3.5rem] leading-none">
           Insights & Advice from experts
         </p>
         <p>
@@ -39,11 +39,11 @@ const Home = () => {
 
       <Hero />
 
-      <div className="py-[30px] w-full  flex gap-[10px] ">
+      <div className="py-[30px] w-full  flex flex-col lg:flex-row gap-[40px] lg:gap-[20px] ">
         <FeaturedArticle selectedArticle={selectedArticle} />
 
-        <div className="bg-[green] flex-1 w-[500px] h-[300px] overflow-hidden ">
-          <Slider {...settings} className="w-[500px] h-[300px]">
+        <div className="bg-[green] flex-1 w-full md:w-[500px] h-[300px] overflow-hidden ">
+          <Slider {...settings} className="w-full md:w-[500px] h-[300px]">
             {articles.map((article, index) => (
               <ArticlesSlide key={index} article={article} />
             ))}

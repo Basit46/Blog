@@ -11,7 +11,7 @@ const Article = ({ article }: ArticlePropType) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   return (
     <Link to={`/articles/${article?.id}`}>
-      <div className="w-[300px] h-fit">
+      <div className="w-full md:w-[300px] h-fit">
         <div className="relative h-[150px] w-full object-cover bg-blue-300">
           <img
             className="h-full w-full object-cover"

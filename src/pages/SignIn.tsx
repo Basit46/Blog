@@ -32,8 +32,8 @@ const SignIn = () => {
   };
 
   return (
-    <div className="flex h-[88vh]">
-      <div className="w-[40%] px-[30px] ">
+    <div className="flex h-fit lg:h-[88vh] justify-center lg:justify-start">
+      <div className="w-full sm:w-[60%] lg:w-[40%] px-[20px] md:px-[30px] ">
         <h1 className="mt-[40px] font-bioRhyme text-[2.5rem] text-center font-bold">
           Welcome Back!
         </h1>
@@ -89,7 +89,7 @@ const SignIn = () => {
         </p>
       </div>
 
-      <div className="fixed z-[-1] right-0 top-0 w-[60%] h-full">
+      <div className="hidden lg:block fixed z-[-1] right-0 top-0 w-[60%] h-full">
         <img
           className="h-full w-full object-cover object-center"
           src={welcomeImg}

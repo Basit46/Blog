@@ -22,10 +22,10 @@ const UserProfile = () => {
   }, []);
 
   return (
-    <div className="px-[40px] h-[84vh] w-full flex gap-[80px]">
-      <div className="h-full w-[30%] bg-black"></div>
+    <div className="px-[20px] md:px-[40px] h-fit lg:h-[84vh] w-full flex flex-col lg:flex-row gap-[30px] lg:gap-[80px]">
+      <div className="h-[170px] lg:h-full w-full md:w-[30%] bg-black"></div>
 
-      <div className="flex-1 mt-[40px]">
+      <div className="lg:flex-1 lg:mt-[40px]">
         <h1 className="text-[2rem] font-bioRhyme font-semibold">
           Hello {user.name}!
         </h1>

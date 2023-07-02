@@ -16,14 +16,14 @@ const ArticleDetail = () => {
 
   return (
     <div>
-      <div className="w-full h-[400px]">
+      <div className="w-full h-[250px] md:h-[400px]">
         <img
           className="h-full w-full object-cover object-center"
           src={articleToView?.img}
           alt="article_img"
         />
       </div>
-      <div className="mt-[20px] px-[80px] pb-[50px]">
+      <div className="mt-[20px] px-[20px] md:px-[80px] pb-[50px]">
         <h1 className="font-bioRhyme text-[2.5rem] font-bold leading-[1]">
           {articleToView?.title}
         </h1>

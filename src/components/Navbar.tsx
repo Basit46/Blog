@@ -1,12 +1,13 @@
 import { CgPen } from "react-icons/cg";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/authContext";
+import { FaBars } from "react-icons/fa";
 
 const Navbar = () => {
   const { user, signout } = useAuthContext();
   const navigate = useNavigate();
   return (
-    <nav className="w-full px-[40px] h-[12vh] flex justify-between items-center">
+    <nav className="sticky top-0 z-[50] bg-white/20 backdrop-blur-[10px] lg:bg-transparent w-full px-[20px] md:px-[40px] h-[12vh] flex justify-between items-center">
       <h1
         onClick={() => navigate("/")}
         className="font-bioRhyme font-bold text-[2.5rem] leading-none cursor-pointer"
@@ -14,7 +15,7 @@ const Navbar = () => {
         Verso
       </h1>
 
-      <ul className="flex items-center gap-[20px]">
+      <ul className="hidden md:flex items-center gap-[20px]">
         <NavLink to="/articles">Articles</NavLink>
         {user.id ? (
           <>
@@ -41,6 +42,8 @@ const Navbar = () => {
           </>
         )}
       </ul>
+
+      <FaBars className="block md:hidden text-[30px]" />
     </nav>
   );
 };

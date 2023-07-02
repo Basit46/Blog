@@ -6,7 +6,7 @@ type ArticlesSlideProp = {
 
 const ArticlesSlide = ({ article }: ArticlesSlideProp) => {
   return (
-    <div className="h-full w-[500px]">
+    <div className="h-full w-full md:w-[500px]">
       <img className="w-full h-full object-cover" src={article.img} alt="img" />
     </div>
   );

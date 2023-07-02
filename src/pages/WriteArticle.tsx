@@ -108,9 +108,9 @@ const WriteArticle = () => {
   };
 
   return (
-    <div className="px-[40px] py-[40px]">
-      <div className="w-full flex gap-[30px]">
-        <div className="w-[33%] flex flex-col gap-[20px]">
+    <div className="px-[20px] md:px-[40px] py-[40px]">
+      <div className="h-fit w-full flex flex-col lg:flex-row gap-[30px]">
+        <div className="w-full md:w-[60%] lg:w-[33%] flex flex-col gap-[20px]">
           <div>
             <label htmlFor="title">Title:</label>
             <input
@@ -148,7 +148,7 @@ const WriteArticle = () => {
 
           <div>
             <input type="file" accept="image/*" onChange={handleImageChange} />
-            <div className="mt-[10px] bg-[grey] relative h-[400px] w-[400px] grid place-items-center">
+            <div className="mt-[10px] bg-[grey] relative h-[400px] w-full md:w-[400px] grid place-items-center">
               <p className="text-[1.2rem] text-center">ADD IMAGE</p>
               {selectedImage && (
                 <div className="absolute top-0 left-0 w-full h-full">
@@ -163,9 +163,9 @@ const WriteArticle = () => {
           </div>
         </div>
 
-        <div className="flex-1">
+        <div className="lg:flex-1">
           <label htmlFor="">Add Content:</label>
-          <div className="h-[70vh] w-full">
+          <div className="h-[300px] md:h-[70vh] w-full">
             <ReactQuill
               style={{ height: "100%" }}
               value={bookDetails.body}
@@ -177,7 +177,7 @@ const WriteArticle = () => {
 
       <button
         onClick={addArticle}
-        className="mt-[30px] w-full bg-green-600 text-white py-[10px] text-[1.5rem] flex justify-center items-center gap-[5px] "
+        className="mt-[90px] lg:mt-[30px] w-full bg-green-600 text-white py-[10px] text-[1.5rem] flex justify-center items-center gap-[5px] "
       >
         ADD ARTICLE <FaPlus />
       </button>
