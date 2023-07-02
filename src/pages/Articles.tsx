@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Article from "../components/Article";
 import { ArticleType, useArticleContext } from "../context/articlesContext";
-import Preloader from "../components/Preloader";
 
 const categories = [
   "View all",
