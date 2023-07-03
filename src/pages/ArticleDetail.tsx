@@ -38,9 +38,9 @@ const ArticleDetail = () => {
         </div>
         {articleToView?.body && (
           <div
-            className="text-justify"
+            className="article-body"
             dangerouslySetInnerHTML={{ __html: articleToView?.body }}
-          />
+          ></div>
         )}
       </div>
     </div>

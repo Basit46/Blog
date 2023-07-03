@@ -13,6 +13,11 @@
   }
 }
 
+.article-body h1 {
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
 body {
   width: 100vw;
   overflow-x: hidden;

@@ -23,7 +23,9 @@ const Navbar = () => {
           openMenu ? "h-auto py-[20px]" : "h-0 md:h-fit"
         } overflow-hidden duration-200 fixed md:static md:pb-0  mx-[20px] w-[88%] md:w-fit top-[70px] left-0 bg-[black] md:bg-transparent text-white md:text-black flex flex-col md:flex-row items-center gap-[20px]`}
       >
-        <NavLink to="/articles">Articles</NavLink>
+        <NavLink onClick={() => setOpenMenu(false)} to="/articles">
+          Articles
+        </NavLink>
         {user.id ? (
           <>
             <NavLink
