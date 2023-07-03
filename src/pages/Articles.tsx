@@ -34,7 +34,7 @@ const Articles = () => {
 
   return (
     <div className="mt-[30px] md:mt-0 w-full px-[20px] md:px-[40px] flex flex-col md:flex-row gap-[30px]">
-      <div className="w-full md:w-[10%] md:fixed top-[13vh] flex flex-wrap gap-[10px]  md:block pb-[10px] border-[red] border-b-[2px] mb:border-trnasparent mb:border-b-[0]">
+      <div className="w-full md:w-[10%] md:fixed top-[13vh] flex flex-wrap gap-[10px]  md:block pb-[10px] border-[red] border-b-[2px] md:border-trnasparent md:border-b-[0]">
         {categories.map((category, index) => (
           <div
             key={index}

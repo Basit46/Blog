@@ -22,6 +22,7 @@ type AuthContextProp = {
   signin: (email: string, password: string) => void;
   signout: () => void;
   signupGoogle: () => void;
+  signinGoogle: () => void;
 };
 
 type UserType = {
@@ -81,11 +82,9 @@ const AuthContextProvider = ({ children }: AuthContextProviderProp) => {
   const signupGoogle = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      console.log(user.displayName, user.email, user.uid);
+      await signInWithPopup(auth, provider);
+      navigate("/articles");
     } catch (error: any) {
-      // Handle Errors here.
       console.log(error.messsage);
     }
   };
@@ -100,13 +99,17 @@ const AuthContextProvider = ({ children }: AuthContextProviderProp) => {
     }
   };
 
+  const signinGoogle = async () => {
+    signupGoogle();
+  };
+
   const signout = () => {
     signOut(auth);
   };
 
   return (
     <AuthContext.Provider
-      value={{ user, signup, signin, signout, signupGoogle }}
+      value={{ user, signup, signin, signout, signupGoogle, signinGoogle }}
     >
       {children}
     </AuthContext.Provider>

@@ -6,7 +6,7 @@ import { useAuthContext } from "../context/authContext";
 import { useArticleContext } from "../context/articlesContext";
 
 const SignIn = () => {
-  const { signin } = useAuthContext();
+  const { signin, signinGoogle } = useAuthContext();
   const { setOpenLoader } = useArticleContext();
 
   const [email, setEmail] = useState("");
@@ -15,10 +15,7 @@ const SignIn = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (email === "" || password === "") {
-      alert("Enter appropriate values");
-      return;
-    }
+
     setOpenLoader(true);
     const res: any = await signin(email, password);
     console.log(res);
@@ -38,7 +35,10 @@ const SignIn = () => {
           Welcome Back!
         </h1>
 
-        <button className="mt-[20px] w-full flex justify-center items-center gap-[10px] border-[black] border-[2px] py-[10px]">
+        <button
+          onClick={signinGoogle}
+          className="mt-[20px] w-full flex justify-center items-center gap-[10px] border-[black] border-[2px] py-[10px]"
+        >
           <FcGoogle />
           Sign In With Google
         </button>
