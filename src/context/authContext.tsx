@@ -82,8 +82,6 @@ const AuthContextProvider = ({ children }: AuthContextProviderProp) => {
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential?.accessToken;
       const user = result.user;
       console.log(user.displayName, user.email, user.uid);
     } catch (error: any) {
