@@ -6,7 +6,7 @@ import { useAuthContext } from "../context/authContext";
 import { useArticleContext } from "../context/articlesContext";
 
 const SignUp = () => {
-  const { signup } = useAuthContext();
+  const { signup, signupGoogle } = useAuthContext();
   const { setOpenLoader } = useArticleContext();
   const navigate = useNavigate();
 
@@ -32,7 +32,10 @@ const SignUp = () => {
           Hi there!
         </h1>
         <p className="text-center text-[1.2rem]">Welcome to Verso</p>
-        <button className="mt-[20px] w-full flex justify-center items-center gap-[10px] border-[black] border-[2px] py-[10px]">
+        <button
+          onClick={signupGoogle}
+          className="mt-[20px] w-full flex justify-center items-center gap-[10px] border-[black] border-[2px] py-[10px]"
+        >
           <FcGoogle />
           Sign Up With Google
         </button>

@@ -5,6 +5,8 @@ import {
   updateProfile,
   signInWithEmailAndPassword,
   signOut,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -19,6 +21,7 @@ type AuthContextProp = {
   signup: (name: string, email: string, password: string) => void;
   signin: (email: string, password: string) => void;
   signout: () => void;
+  signupGoogle: () => void;
 };
 
 type UserType = {
@@ -75,6 +78,20 @@ const AuthContextProvider = ({ children }: AuthContextProviderProp) => {
       .finally(() => {});
   };
 
+  const signupGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential?.accessToken;
+      const user = result.user;
+      console.log(user.displayName, user.email, user.uid);
+    } catch (error: any) {
+      // Handle Errors here.
+      console.log(error.messsage);
+    }
+  };
+
   const signin = async (email: string, password: string) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -90,7 +107,9 @@ const AuthContextProvider = ({ children }: AuthContextProviderProp) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, signup, signin, signout }}>
+    <AuthContext.Provider
+      value={{ user, signup, signin, signout, signupGoogle }}
+    >
       {children}
     </AuthContext.Provider>
   );
