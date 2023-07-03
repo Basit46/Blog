@@ -6,6 +6,7 @@ import ArticlesSlide from "../components/ArticlesSlide";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import PagePreloader from "../components/PagePreloader";
 
 const settings = {
   dots: false,
@@ -20,10 +21,27 @@ const settings = {
 const Home = () => {
   const { articles } = useArticleContext();
   const [selectedArticle, setSelectedArticle] = useState<ArticleType>();
+  const [openPreloader, setOpenPreloader] = useState(true);
+
+  useEffect(() => {
+    const load = () => {
+      setOpenPreloader(false);
+    };
+
+    window.addEventListener("load", load);
+
+    return () => {
+      window.removeEventListener("load", load);
+    };
+  }, []);
 
   useEffect(() => {
     setSelectedArticle(articles[Math.round(Math.random() * articles.length)]);
   }, [articles]);
+
+  if (openPreloader) {
+    return <PagePreloader />;
+  }
 
   return (
     <div className="px-[20px] sm:px-[40px]">

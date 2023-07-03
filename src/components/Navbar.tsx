@@ -10,7 +10,7 @@ const Navbar = () => {
 
   const [openMenu, setOpenMenu] = useState(false);
   return (
-    <nav className="sticky top-0 z-[50] bg-white/20 md:bg-white backdrop-blur-[10px] md:backdrop-blur-none lg:bg-transparent w-full px-[20px] md:px-[40px] h-[12vh] flex justify-between items-center">
+    <nav className="sticky top-0 z-[50] bg-white/20 md:bg-white/40 backdrop-blur-[10px] w-full px-[20px] md:px-[40px] h-[12vh] flex justify-between items-center">
       <h1
         onClick={() => navigate("/")}
         className="font-bioRhyme font-bold text-[2.5rem] leading-none cursor-pointer"
