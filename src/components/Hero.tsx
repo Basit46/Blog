@@ -7,7 +7,7 @@ const Hero = () => {
       <div className="w-full h-full rounded-[20px] overflow-hidden">
         <img className="w-full h-full object-cover" src={bgImage} alt="bg" />
       </div>
-      <div className="absolute top-0 left-0 w-full h-full pb-[50px] md:pb-0 p-[20px] md:p-[40px] flex flex-col justify-end text-white">
+      <div className="absolute top-0 left-0 w-full h-full pb-[50px] p-[20px] md:p-[40px] flex flex-col justify-end text-white">
         <p className="font-semibold text-[1.3rem]">Featured</p>
         <div className="w-full flex justify-between items-center mt-[20px] mb-[10px]">
           <h1 className="text-[1.7rem] md:text-[2rem] font-bold leading-none">

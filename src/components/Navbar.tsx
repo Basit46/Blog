@@ -10,7 +10,7 @@ const Navbar = () => {
 
   const [openMenu, setOpenMenu] = useState(false);
   return (
-    <nav className="sticky top-0 z-[50] bg-white/20 backdrop-blur-[10px] lg:bg-transparent w-full px-[20px] md:px-[40px] h-[12vh] flex justify-between items-center">
+    <nav className="sticky top-0 z-[50] bg-white/20 md:bg-white backdrop-blur-[10px] md:backdrop-blur-none lg:bg-transparent w-full px-[20px] md:px-[40px] h-[12vh] flex justify-between items-center">
       <h1
         onClick={() => navigate("/")}
         className="font-bioRhyme font-bold text-[2.5rem] leading-none cursor-pointer"
@@ -21,17 +21,26 @@ const Navbar = () => {
       <ul
         className={`${
           openMenu ? "h-auto py-[20px]" : "h-0 md:h-fit"
-        } overflow-hidden duration-200 fixed md:static md:pb-0  mx-[20px] w-[88%] md:w-fit top-[70px] left-0 bg-[black] md:bg-white text-white md:text-black flex flex-col md:flex-row items-center gap-[20px]`}
+        } overflow-hidden duration-200 fixed md:static md:pb-0  mx-[20px] w-[88%] md:w-fit top-[70px] left-0 bg-[black] md:bg-transparent text-white md:text-black flex flex-col md:flex-row items-center gap-[20px]`}
       >
         <NavLink to="/articles">Articles</NavLink>
         {user.id ? (
           <>
-            <NavLink to="/write" className="flex items-start">
+            <NavLink
+              onClick={() => setOpenMenu(false)}
+              to="/write"
+              className="flex items-start"
+            >
               Write <CgPen />
             </NavLink>
-            <NavLink to="/profile">Profile</NavLink>
+            <NavLink onClick={() => setOpenMenu(false)} to="/profile">
+              Profile
+            </NavLink>
             <button
-              onClick={signout}
+              onClick={() => {
+                setOpenMenu(false);
+                signout();
+              }}
               className="bg-black text-white px-[12px] py-[8px]"
             >
               Sign Out
@@ -39,8 +48,11 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <NavLink to="/signin">Log In</NavLink>
+            <NavLink onClick={() => setOpenMenu(false)} to="/signin">
+              Log In
+            </NavLink>
             <NavLink
+              onClick={() => setOpenMenu(false)}
               to="/signup"
               className="bg-white md:bg-black text-black md:text-white px-[12px] py-[8px]"
             >
