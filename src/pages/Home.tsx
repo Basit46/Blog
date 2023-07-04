@@ -7,6 +7,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import PagePreloader from "../components/PagePreloader";
+import { useAuthContext } from "../context/authContext";
 
 const settings = {
   dots: false,
@@ -19,6 +20,7 @@ const settings = {
 };
 
 const Home = () => {
+  const { user } = useAuthContext();
   const { articles } = useArticleContext();
   const [selectedArticle, setSelectedArticle] = useState<ArticleType>();
   const [openPreloader, setOpenPreloader] = useState(true);
@@ -33,7 +35,7 @@ const Home = () => {
     return () => {
       window.removeEventListener("load", load);
     };
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     setSelectedArticle(articles[Math.round(Math.random() * articles.length)]);
