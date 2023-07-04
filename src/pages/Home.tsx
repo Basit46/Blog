@@ -39,7 +39,7 @@ const Home = () => {
 
       <Hero />
 
-      <div className="py-[30px] w-full  flex flex-col lg:flex-row gap-[40px] lg:gap-[20px] ">
+      {/* <div className="py-[30px] w-full  flex flex-col lg:flex-row gap-[40px] lg:gap-[20px] ">
         <FeaturedArticle selectedArticle={selectedArticle} />
 
         <div className="bg-[green] flex-1 w-full md:w-[500px] h-[300px] overflow-hidden ">
@@ -49,7 +49,7 @@ const Home = () => {
             ))}
           </Slider>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
