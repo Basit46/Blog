@@ -1,29 +1,29 @@
-import { useState, useEffect } from "react";
-import FeaturedArticle from "../components/FeaturedArticle";
+// import { useState, useEffect } from "react";
+// import FeaturedArticle from "../components/FeaturedArticle";
+// import { ArticleType, useArticleContext } from "../context/articlesContext";
+// import ArticlesSlide from "../components/ArticlesSlide";
+// import Slider from "react-slick";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 import Hero from "../components/Hero";
-import { ArticleType, useArticleContext } from "../context/articlesContext";
-import ArticlesSlide from "../components/ArticlesSlide";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
-const settings = {
-  dots: false,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  arrows: false,
-  autoplay: true,
-};
+// const settings = {
+//   dots: false,
+//   infinite: true,
+//   speed: 500,
+//   slidesToShow: 1,
+//   slidesToScroll: 1,
+//   arrows: false,
+//   autoplay: true,
+// };
 
 const Home = () => {
-  const { articles } = useArticleContext();
-  const [selectedArticle, setSelectedArticle] = useState<ArticleType>();
+  // const { articles } = useArticleContext();
+  // const [selectedArticle, setSelectedArticle] = useState<ArticleType>();
 
-  useEffect(() => {
-    setSelectedArticle(articles[Math.round(Math.random() * articles.length)]);
-  }, [articles]);
+  // useEffect(() => {
+  //   setSelectedArticle(articles[Math.round(Math.random() * articles.length)]);
+  // }, [articles]);
 
   return (
     <div className="px-[20px] sm:px-[40px]">
