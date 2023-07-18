@@ -2,6 +2,7 @@ import { useAuthContext } from "../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useArticleContext } from "../context/articlesContext";
+import profileImg from "../assets/profile.jpg";
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -23,7 +24,13 @@ const UserProfile = () => {
 
   return (
     <div className="px-[20px] md:px-[40px] h-fit lg:h-[84vh] w-full flex flex-col lg:flex-row gap-[30px] lg:gap-[80px]">
-      <div className="h-[170px] lg:h-full w-full md:w-[30%] bg-black"></div>
+      <div className="h-[170px] lg:h-[97%] w-full md:w-[30%] bg-black">
+        <img
+          className="h-full w-full object-cover"
+          src={profileImg}
+          alt="profile_Img"
+        />
+      </div>
 
       <div className="lg:flex-1 lg:mt-[40px]">
         <h1 className="text-[2rem] font-bioRhyme font-semibold">
@@ -62,9 +69,9 @@ const UserProfile = () => {
               >
                 View
               </Link>
-              <button className="bg-[red] px-[10px] py-[5px] text-[0.8rem] text-white">
+              {/* <button className="bg-[red] px-[10px] py-[5px] text-[0.8rem] text-white">
                 Delete
-              </button>
+              </button> */}
             </li>
           ))}
         </ul>

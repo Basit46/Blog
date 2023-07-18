@@ -17,6 +17,12 @@
   font-size: 2rem;
   line-height: 1.2;
 }
+.article-body h2 {
+  font-size: 1.5rem;
+}
+.article-body h3 {
+  font-size: 1.2rem;
+}
 
 body {
   width: 100vw;

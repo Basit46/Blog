@@ -1,25 +1,46 @@
-import bgImage from "../assets/pexels-kaushal-moradiya-2781195.jpg";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { TiArrowDownOutline } from "react-icons/ti";
+import { ArticleType, useArticleContext } from "../context/articlesContext";
 
 const Hero = () => {
+  const { articles } = useArticleContext();
+
+  const [featuredArticle, setFeaturedArticle] = useState<
+    ArticleType | undefined
+  >();
+
+  useEffect(() => {
+    setFeaturedArticle(
+      articles.find(
+        (article) => article.id === "2ed21a89-e7fd-4231-9e93-284458c19e35"
+      )
+    );
+  }, []);
   return (
     <div className="mt-[30px] relative h-[70vh] md:h-[87vh] w-full pb-[30px]">
       <div className="w-full h-full rounded-[20px] overflow-hidden">
-        <img className="w-full h-full object-cover" src={bgImage} alt="bg" />
+        <img
+          className="w-full h-full object-cover"
+          src={featuredArticle?.img}
+          alt="bg"
+        />
       </div>
-      <div className="absolute top-0 left-0 w-full h-full pb-[50px] p-[20px] md:p-[40px] flex flex-col justify-end text-white">
+      <div className="absolute top-0 left-0 w-full h-full pb-[50px] p-[20px] md:p-[40px] md:pb-[60px] flex flex-col justify-end text-white">
         <p className="font-semibold text-[1.3rem]">Featured</p>
         <div className="w-full flex justify-between items-center mt-[20px] mb-[10px]">
           <h1 className="text-[1.7rem] md:text-[2rem] font-bold leading-none">
-            Breaking Into Product Design:
-            <br />A Beginner's guide
+            {featuredArticle?.title}
           </h1>
-          <TiArrowDownOutline className="rotate-[-90deg] text-[50px]" />
+          <Link to="/articles/2ed21a89-e7fd-4231-9e93-284458c19e35">
+            <TiArrowDownOutline className="rotate-[-90deg] text-[50px]" />
+          </Link>
         </div>
         <p className="w-full md:w-[60%]">
-          This article explores the process of breaking into the dynamic field
-          of product design. It emphasizes the importance of cultivating a
-          strong design foundation, developing a diverse skill set.
+          "Beasts of No Nation" is a heart-rending article that immerses us in
+          the brutal reality of child soldiers, thrust into the depths of war's
+          darkest abyss. Forever reminding us of the indomitable spirit of those
+          trapped in war's merciless grip.
         </p>
       </div>
     </div>
