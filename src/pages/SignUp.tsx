@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import welcomeImg from "../assets/city.jpg";
+import welcomeImg from "../assets/leaf.jpg";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/authContext";
 import { useArticleContext } from "../context/articlesContext";
+import { motion } from "framer-motion";
 
 const SignUp = () => {
   const { signup, signupGoogle } = useAuthContext();
@@ -26,7 +27,13 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex h-fit lg:h-[88vh] justify-center lg:justify-start">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
+      className="flex h-fit lg:h-[88vh] justify-center lg:justify-start"
+    >
       <div className="w-full sm:w-[60%] lg:w-[40%] px-[20px] md:px-[30px] ">
         <h1 className="font-bioRhyme text-[4rem] text-center font-bold">
           Hi there!
@@ -100,7 +107,7 @@ const SignUp = () => {
           alt="welcome_img"
         />
       </div>
-    </div>
+    </motion.div>
   );
 };
 

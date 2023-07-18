@@ -1,9 +1,10 @@
-import welcomeImg from "../assets/city.jpg";
+import welcomeImg from "../assets/leaf.jpg";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useAuthContext } from "../context/authContext";
 import { useArticleContext } from "../context/articlesContext";
+import { motion } from "framer-motion";
 
 const SignIn = () => {
   const { signin, signinGoogle } = useAuthContext();
@@ -29,7 +30,13 @@ const SignIn = () => {
   };
 
   return (
-    <div className="flex h-fit lg:h-[88vh] justify-center lg:justify-start">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
+      className="flex h-fit lg:h-[88vh] justify-center lg:justify-start"
+    >
       <div className="w-full sm:w-[60%] lg:w-[40%] px-[20px] md:px-[30px] ">
         <h1 className="mt-[40px] font-bioRhyme text-[2.5rem] text-center font-bold">
           Welcome Back!
@@ -96,7 +103,7 @@ const SignIn = () => {
           alt="welcome_img"
         />
       </div>
-    </div>
+    </motion.div>
   );
 };
 

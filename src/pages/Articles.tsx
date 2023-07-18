@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Article from "../components/Article";
 import { ArticleType, useArticleContext } from "../context/articlesContext";
+import { motion } from "framer-motion";
 
 const categories = [
   "View all",
@@ -33,7 +34,13 @@ const Articles = () => {
   }, [selectedCateg]);
 
   return (
-    <div className="mt-[30px] md:mt-0 w-full px-[20px] md:px-[40px] flex flex-col md:flex-row gap-[30px]">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
+      className="mt-[30px] md:mt-0 w-full px-[20px] md:px-[40px] flex flex-col md:flex-row gap-[30px]"
+    >
       <div className="w-full md:w-[10%] md:fixed top-[13vh] flex flex-wrap gap-[10px]  md:block pb-[10px] border-[red] border-b-[2px] md:border-trnasparent md:border-b-[0]">
         {categories.map((category, index) => (
           <div
@@ -58,7 +65,7 @@ const Articles = () => {
             <Article key={index} article={article} />
           ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

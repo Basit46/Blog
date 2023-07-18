@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 import { storage } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useArticleContext } from "../context/articlesContext";
+import { motion } from "framer-motion";
 
 const categories = ["Design", "Food", "Politics", "Sport", "Others"];
 
@@ -108,7 +109,13 @@ const WriteArticle = () => {
   };
 
   return (
-    <div className="px-[20px] md:px-[40px] py-[40px]">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
+      className="px-[20px] md:px-[40px] py-[40px]"
+    >
       <div className="h-fit w-full flex flex-col lg:flex-row gap-[30px]">
         <div className="w-full md:w-[60%] lg:w-[33%] flex flex-col gap-[20px]">
           <div>
@@ -181,7 +188,7 @@ const WriteArticle = () => {
       >
         ADD ARTICLE <FaPlus />
       </button>
-    </div>
+    </motion.div>
   );
 };
 

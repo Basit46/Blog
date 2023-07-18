@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useArticleContext } from "../context/articlesContext";
 import profileImg from "../assets/profile.jpg";
+import { motion } from "framer-motion";
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -23,7 +24,13 @@ const UserProfile = () => {
   }, []);
 
   return (
-    <div className="px-[20px] md:px-[40px] h-fit lg:h-[84vh] w-full flex flex-col lg:flex-row gap-[30px] lg:gap-[80px]">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
+      className="px-[20px] md:px-[40px] h-fit lg:h-[84vh] w-full flex flex-col lg:flex-row gap-[30px] lg:gap-[80px]"
+    >
       <div className="h-[170px] lg:h-[97%] w-full md:w-[30%] bg-black">
         <img
           className="h-full w-full object-cover"
@@ -76,7 +83,7 @@ const UserProfile = () => {
           ))}
         </ul>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

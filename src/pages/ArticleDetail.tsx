@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ArticleType, useArticleContext } from "../context/articlesContext";
 import { useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const ArticleDetail = () => {
   const { id } = useParams();
@@ -15,7 +16,12 @@ const ArticleDetail = () => {
   }, []);
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
+    >
       <div className="w-full h-[250px] md:h-[400px]">
         <img
           className="h-full w-full object-cover object-center"
@@ -43,7 +49,7 @@ const ArticleDetail = () => {
           ></div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
