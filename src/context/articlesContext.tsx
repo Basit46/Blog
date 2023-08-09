@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { onSnapshot, collection } from "firebase/firestore";
+import { onSnapshot, collection, Unsubscribe } from "firebase/firestore";
 import { db } from "../firebase";
 
 const ArticleContext = createContext({} as ArticleContextType);
@@ -38,6 +38,7 @@ type ArticleContextType = {
   dispatch: React.Dispatch<ActionType>;
   openLoader: boolean;
   setOpenLoader: React.Dispatch<React.SetStateAction<boolean>>;
+  fetchData: () => Promise<Unsubscribe>;
 };
 
 const reducer = (state: ArticleType[], action: ActionType) => {
@@ -54,27 +55,26 @@ const ArticleContextProvider = ({ children }: ArticleContextProviderProp) => {
   const [openLoader, setOpenLoader] = useState(false);
   const [articles, dispatch] = useReducer(reducer, initialState);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const colRef = collection(db, "articles");
+  const fetchData = async () => {
+    const colRef = collection(db, "articles");
 
-      const unsubscribe = onSnapshot(colRef, (snapshot) => {
-        let resData: any[] = [];
-        snapshot.docs.forEach((doc) => {
-          resData.push({ ...doc.data() });
-        });
-        dispatch({ type: "addArticle", payload: resData });
+    const unsubscribe = onSnapshot(colRef, (snapshot) => {
+      let resData: any[] = [];
+      snapshot.docs.forEach((doc) => {
+        resData.push({ ...doc.data() });
       });
+      dispatch({ type: "addArticle", payload: resData });
+    });
 
-      return () => unsubscribe();
-    };
-
+    return () => unsubscribe();
+  };
+  useEffect(() => {
     fetchData();
   }, []);
 
   return (
     <ArticleContext.Provider
-      value={{ articles, dispatch, openLoader, setOpenLoader }}
+      value={{ articles, dispatch, openLoader, setOpenLoader, fetchData }}
     >
       {children}
     </ArticleContext.Provider>

@@ -39,7 +39,7 @@ const AuthContextProvider = ({ children }: AuthContextProviderProp) => {
     id: null,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       if (currentUser) {
         setUser({
@@ -60,10 +60,6 @@ const AuthContextProvider = ({ children }: AuthContextProviderProp) => {
       unsubscribe();
     };
   }, []);
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
 
   const signup = (name: string, email: string, password: string) => {
     createUserWithEmailAndPassword(auth, email, password)

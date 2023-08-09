@@ -5,15 +5,23 @@ import { motion } from "framer-motion";
 
 const ArticleDetail = () => {
   const { id } = useParams();
-  const { articles } = useArticleContext();
+  const { articles, fetchData } = useArticleContext();
 
   const [articleToView, setArticleToView] = useState<ArticleType | undefined>();
 
   useEffect(() => {
-    if (id) {
-      setArticleToView(articles?.find((article) => article.id === id));
-    }
-  }, []);
+    const getArticle = async () => {
+      if (articles.length > 0) {
+        setArticleToView(articles.find((article) => article.id === id));
+      } else {
+        const unsubscribe = await fetchData();
+        unsubscribe(); // This is important to clean up the snapshot listener
+        setArticleToView(articles.find((article) => article.id === id));
+      }
+    };
+
+    getArticle();
+  }, [id, articles, fetchData]);
 
   return (
     <motion.div
