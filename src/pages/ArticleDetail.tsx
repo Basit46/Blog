@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ArticleType, useArticleContext } from "../context/articlesContext";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import PagePreloader from "../components/PagePreloader";
 
 const ArticleDetail = () => {
   const { id } = useParams();
@@ -23,6 +24,9 @@ const ArticleDetail = () => {
     getArticle();
   }, [id, articles, fetchData]);
 
+  if (!articleToView) {
+    return <PagePreloader />;
+  }
   return (
     <motion.div
       initial={{ opacity: 0 }}
