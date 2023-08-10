@@ -50,12 +50,12 @@ const ArticleDetail = () => {
         />
       </div>
       <div className="mt-[20px] px-[20px] md:px-[80px] pb-[50px]">
-        <div className="flex justify-between">
+        <div className="mb-[30px] flex flex-col xmd:flex-row gap-y-[10px] xmd:gap-y-[0px] justify-between ">
           <div>
             <h1 className="font-bioRhyme text-[2.5rem] font-bold leading-[1]">
               {articleToView?.title}
             </h1>
-            <div className="mt-[20px] mb-[30px] flex items-center gap-[10px]">
+            <div className="mt-[20px] flex items-center gap-[10px]">
               <div className="flex items-center">
                 <div className="h-[30px] w-[30px] rounded-full bg-[grey] mr-[5px]"></div>
                 <p className="font-semibold text-[1.3rem] leading-none">
@@ -67,7 +67,7 @@ const ArticleDetail = () => {
           </div>
           <button
             onClick={handleLinkCopy}
-            className="h-[50px] w-[180px] border-black border-[2px] px-[20px] py-[5px] text-[20px]"
+            className="self-end xmd:self-auto h-[50px] w-[150px] vsm:w-[180px] border-black border-[2px] px-[20px] py-[5px] text-[16px] vsm:text-[20px]"
           >
             COPY LINK
           </button>
