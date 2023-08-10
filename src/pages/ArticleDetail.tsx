@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ArticleType, useArticleContext } from "../context/articlesContext";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import { copyToClipboard } from "../utils/copyToClipboard";
 import PagePreloader from "../components/PagePreloader";
 
 const ArticleDetail = () => {
@@ -24,6 +25,13 @@ const ArticleDetail = () => {
     getArticle();
   }, [id, articles, fetchData]);
 
+  const handleLinkCopy = async () => {
+    const res = await copyToClipboard(window.location.href);
+    if (res) {
+      alert("Copied To Clipboard!");
+    }
+  };
+
   if (!articleToView) {
     return <PagePreloader />;
   }
@@ -42,18 +50,29 @@ const ArticleDetail = () => {
         />
       </div>
       <div className="mt-[20px] px-[20px] md:px-[80px] pb-[50px]">
-        <h1 className="font-bioRhyme text-[2.5rem] font-bold leading-[1]">
-          {articleToView?.title}
-        </h1>
-        <div className="mt-[20px] mb-[30px] flex items-center gap-[10px]">
-          <div className="flex items-center">
-            <div className="h-[30px] w-[30px] rounded-full bg-[grey] mr-[5px]"></div>
-            <p className="font-semibold text-[1.3rem] leading-none">
-              {articleToView?.author}
-            </p>
+        <div className="flex justify-between">
+          <div>
+            <h1 className="font-bioRhyme text-[2.5rem] font-bold leading-[1]">
+              {articleToView?.title}
+            </h1>
+            <div className="mt-[20px] mb-[30px] flex items-center gap-[10px]">
+              <div className="flex items-center">
+                <div className="h-[30px] w-[30px] rounded-full bg-[grey] mr-[5px]"></div>
+                <p className="font-semibold text-[1.3rem] leading-none">
+                  {articleToView?.author}
+                </p>
+              </div>
+              |<p className="opacity-90 text-[0.8rem]">{articleToView?.time}</p>
+            </div>
           </div>
-          |<p className="opacity-90 text-[0.8rem]">{articleToView?.time}</p>
+          <button
+            onClick={handleLinkCopy}
+            className="h-[50px] w-[180px] border-black border-[2px] px-[20px] py-[5px] text-[20px]"
+          >
+            COPY LINK
+          </button>
         </div>
+
         {articleToView?.body && (
           <div
             className="article-body"
