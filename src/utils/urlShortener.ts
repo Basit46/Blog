@@ -1,10 +1,12 @@
 const shortUrl = async (urlToShort: string) => {
   const url = "https://url-shortener-service.p.rapidapi.com/shorten";
+  const rapidAPIKey = import.meta.env.VITE_RAPIDAPI_KEY;
+
   const options = {
     method: "POST",
     headers: {
       "content-type": "application/x-www-form-urlencoded",
-      "X-RapidAPI-Key": "8c43990388msh6c9c96c9392d66bp1ef91bjsne9497caac83c",
+      "X-RapidAPI-Key": rapidAPIKey,
       "X-RapidAPI-Host": "url-shortener-service.p.rapidapi.com",
     },
     body: new URLSearchParams({
