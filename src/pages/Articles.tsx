@@ -43,7 +43,7 @@ const Articles = () => {
     >
       <div className="w-full md:w-[10%] md:fixed top-[13vh] flex flex-wrap gap-[10px]  md:block pb-[10px] border-[red] border-b-[2px] md:border-trnasparent md:border-b-[0]">
         {categories.map((category, index) => (
-          <div
+          <button
             key={index}
             onClick={() => setSelectedCateg(category)}
             className={`${
@@ -51,7 +51,7 @@ const Articles = () => {
             } border-black border-[2px] md:mb-[10px] inline md:block  px-[15px] py-[5px] text-[1.1rem] cursor-pointer`}
           >
             {category}
-          </div>
+          </button>
         ))}
       </div>
 
