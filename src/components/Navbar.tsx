@@ -1,12 +1,11 @@
 import { CgPen } from "react-icons/cg";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAuthContext } from "../context/authContext";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useState } from "react";
 
 const Navbar = () => {
   const { user, signout } = useAuthContext();
-  const navigate = useNavigate();
 
   const [openMenu, setOpenMenu] = useState(false);
   return (
