@@ -1,5 +1,5 @@
 import { CgPen } from "react-icons/cg";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/authContext";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useState } from "react";
@@ -11,14 +11,12 @@ const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   return (
     <nav className="sticky top-0 z-[50] bg-white/20 md:bg-white/40 backdrop-blur-[10px] w-full px-[20px] md:px-[40px] h-[12vh] flex justify-between items-center">
-      <div
-        onClick={() => navigate("/")}
+      <Link
+        to="/"
         className="font-bioRhyme font-bold text-[2.5rem] leading-none cursor-pointer"
-        role="button"
-        tabIndex={0}
       >
         Verso
-      </div>
+      </Link>
 
       <ul
         className={`${
