@@ -1,36 +1,21 @@
 import { useState, useEffect } from "react";
-import { ArticleType, useArticleContext } from "../context/articlesContext";
+import { ArticleType } from "../context/articlesContext";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { copyToClipboard } from "../utils/copyToClipboard";
 import PagePreloader from "../components/PagePreloader";
+import axios from "axios";
 
 const ArticleDetail = () => {
   const { id } = useParams();
-  const { articles, fetchData } = useArticleContext();
 
-  const [articleToView, setArticleToView] = useState<ArticleType | undefined>();
+  const [articleToView, setArticleToView] = useState<ArticleType>();
 
   useEffect(() => {
-    const getArticle = async () => {
-      if (articles.length > 0) {
-        setArticleToView(articles.find((article) => article.id === id));
-      } else {
-        const unsubscribe = await fetchData();
-        unsubscribe(); // This is important to clean up the snapshot listener
-        setArticleToView(articles.find((article) => article.id === id));
-      }
-    };
-
-    getArticle();
-  }, [id, articles, fetchData]);
-
-  const handleLinkCopy = async () => {
-    const res = await copyToClipboard(window.location.href);
-    if (res) {
-      alert("Copied To Clipboard!");
-    }
-  };
+    axios
+      .get(`http://localhost:5000/articles/${id}`)
+      .then((res) => setArticleToView(res.data))
+      .catch((err) => console.log(err));
+  }, []);
 
   if (!articleToView) {
     return <PagePreloader />;
@@ -44,8 +29,8 @@ const ArticleDetail = () => {
     >
       <div className="w-full h-[250px] md:h-[400px]">
         <img
-          className="h-full w-full object-cover object-center"
-          src={articleToView?.img}
+          className="h-full w-full object-cover object-top"
+          src={articleToView?.image}
           alt="article_img"
         />
       </div>
@@ -59,18 +44,15 @@ const ArticleDetail = () => {
               <div className="flex items-center">
                 <div className="h-[30px] w-[30px] rounded-full bg-[grey] mr-[5px]"></div>
                 <p className="font-semibold text-[1.3rem] leading-none">
-                  {articleToView?.author}
+                  {articleToView?.authorName}
                 </p>
               </div>
-              |<p className="opacity-90 text-[0.8rem]">{articleToView?.time}</p>
+              |
+              <p className="opacity-90 text-[0.8rem]">
+                {articleToView?.createdAt}
+              </p>
             </div>
           </div>
-          <button
-            onClick={handleLinkCopy}
-            className="self-end xmd:self-auto h-[50px] w-[150px] vsm:w-[180px] border-black border-[2px] px-[20px] py-[5px] text-[16px] vsm:text-[20px]"
-          >
-            COPY LINK
-          </button>
         </div>
 
         {articleToView?.body && (

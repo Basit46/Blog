@@ -66,19 +66,19 @@ const UserProfile = () => {
             >
               <img
                 className="w-[50px] h-[30px] object-cover"
-                src={article.img}
+                src={article.image}
                 alt="article_img"
               />
               <p className="flex-1 font-bold">{article.title}</p>
               <Link
                 className="bg-black px-[15px] py-[5px] text-[0.8rem] text-white"
-                to={`/articles/${article.id}`}
+                to={`/articles/${article._id}`}
               >
                 View
               </Link>
-              {/* <button className="bg-[red] px-[10px] py-[5px] text-[0.8rem] text-white">
+              <button className="bg-[red] px-[10px] py-[5px] text-[0.8rem] text-white">
                 Delete
-              </button> */}
+              </button>
             </li>
           ))}
         </ul>

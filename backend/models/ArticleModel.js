@@ -10,7 +10,16 @@ const ArticleSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    author: {
+    category: {
+      type: String,
+      required: true,
+    },
+    image: String,
+    authorId: {
+      type: String,
+      required: true,
+    },
+    authorName: {
       type: String,
       required: true,
     },

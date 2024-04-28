@@ -1,80 +1,50 @@
-import React, {
-  createContext,
-  useReducer,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import { onSnapshot, collection, Unsubscribe } from "firebase/firestore";
-import { db } from "../firebase";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import axios from "axios";
 
 const ArticleContext = createContext({} as ArticleContextType);
 
-const initialState: ArticleType[] = [];
-
-type ArticleContextProviderProp = {
-  children: React.ReactNode;
-};
-
 export type ArticleType = {
-  id: number | string;
-  author: string;
-  authorId: string;
+  _id: string;
+  title: string;
   body: string;
   category: string;
-  img: string;
-  time: string;
-  title: string;
-  desc: string;
-};
-
-type ActionType = {
-  type: "addArticle";
-  payload: any;
+  image: string;
+  authorId: string;
+  authorName: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
 };
 
 type ArticleContextType = {
   articles: ArticleType[];
-  dispatch: React.Dispatch<ActionType>;
   openLoader: boolean;
   setOpenLoader: React.Dispatch<React.SetStateAction<boolean>>;
-  fetchData: () => Promise<Unsubscribe>;
+  fetchData: () => Promise<void>;
 };
 
-const reducer = (state: ArticleType[], action: ActionType) => {
-  switch (action.type) {
-    case "addArticle":
-      return [...action.payload];
-
-    default:
-      return state;
-  }
-};
-
-const ArticleContextProvider = ({ children }: ArticleContextProviderProp) => {
+const ArticleContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [openLoader, setOpenLoader] = useState(false);
-  const [articles, dispatch] = useReducer(reducer, initialState);
+  const [articles, setArticles] = useState<ArticleType[]>([]);
 
   const fetchData = async () => {
-    const colRef = collection(db, "articles");
-
-    const unsubscribe = onSnapshot(colRef, (snapshot) => {
-      let resData: any[] = [];
-      snapshot.docs.forEach((doc) => {
-        resData.push({ ...doc.data() });
-      });
-      dispatch({ type: "addArticle", payload: resData });
-    });
-
-    return () => unsubscribe();
+    axios
+      .get("http://localhost:5000/articles")
+      .then((res) => setArticles(res.data))
+      .catch((err) => console.log(err));
   };
+
   useEffect(() => {
     fetchData();
   }, []);
 
   return (
     <ArticleContext.Provider
-      value={{ articles, dispatch, openLoader, setOpenLoader, fetchData }}
+      value={{ articles, openLoader, setOpenLoader, fetchData }}
     >
       {children}
     </ArticleContext.Provider>

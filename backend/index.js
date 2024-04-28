@@ -26,11 +26,26 @@ app.get("/articles", (req, res) => {
     });
 });
 
+app.get("/articles/:id", (req, res) => {
+  const id = req.params.id;
+  Article.findById(id)
+    .then((articles) => {
+      res.status(200).json(articles); // Send the retrieved articles as JSON response
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message }); // Handle any errors
+    });
+});
+
 app.post("/add", (req, res) => {
   const article = new Article({
     title: req.body.title,
     body: req.body.body,
     author: req.body.author,
+    category: req.body.category,
+    image: req.body.image,
+    authorName: req.body.authorName,
+    authorId: req.body.authorId,
   });
 
   article

@@ -2,12 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { db } from "../firebase";
-import { collection, addDoc } from "firebase/firestore";
 import { useAuthContext } from "../context/authContext";
-import { v4 as uuidv4 } from "uuid";
-import { storage } from "../firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useArticleContext } from "../context/articlesContext";
 import { motion } from "framer-motion";
 
