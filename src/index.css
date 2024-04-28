@@ -11,6 +11,11 @@
   nav ul button {
     @apply text-[1.1rem];
   }
+
+  .create-page input,
+  .create-page select {
+    @apply w-full border-[#c0bfbf] border-[2px] px-[5px] py-[10px];
+  }
 }
 
 .article-body h1 {

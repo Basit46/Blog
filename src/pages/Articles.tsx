@@ -56,14 +56,14 @@ const Articles = () => {
       </div>
 
       <div className="ml-0 md:ml-[14%] md:flex-1 flex flex-col md:flex-row md:flex-wrap gap-[30px]">
-        {articles.length < 1 && (
+        {/* {articles.length < 1 && (
           <h1 className="font-bold text-[2rem]">Loading...</h1>
         )}
 
         {articlesToRender &&
           articlesToRender.map((article, index) => (
             <Article key={index} article={article} />
-          ))}
+          ))} */}
       </div>
     </motion.div>
   );
