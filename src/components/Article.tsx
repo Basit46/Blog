@@ -16,7 +16,7 @@ const Article = ({ article }: { article: ArticleType }) => {
           <h1 className="font-semibold text-[1.1rem] leading-[1.2]">
             {article?.title}
           </h1>
-          <p className="mt-[5px] text-[0.8rem] mb-[10px]">{article?.body}</p>
+          {/* <p className="mt-[5px] text-[0.8rem] mb-[10px]">{article?.body.sl}</p> */}
           <p className="font-semibold leading-none">{article?.authorName}</p>
           <p className="opacity-90 text-[0.8rem]">{article?.createdAt}</p>
         </div>

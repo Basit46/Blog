@@ -5,6 +5,7 @@ import "react-quill/dist/quill.snow.css";
 import { useAuthContext } from "../context/authContext";
 import { useArticleContext } from "../context/articlesContext";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 const categories = ["Design", "Food", "Politics", "Sport", "Others"];
 
@@ -23,46 +24,58 @@ const WriteArticle = () => {
   }, [user]);
 
   //local states
-  const [bookDetails, setBookDetails] = useState({
+  const [articleDetails, setArticleDetails] = useState({
     title: "",
-    desc: "",
     body: "",
-    categ: "Design",
+    categ: "",
     img: "",
   });
 
   //State change handler functions
   const handleEditorChange = (value: string) => {
-    setBookDetails({ ...bookDetails, body: value });
+    setArticleDetails({ ...articleDetails, body: value });
   };
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBookDetails({ ...bookDetails, title: e.target.value });
-  };
-  const handleDescChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBookDetails({ ...bookDetails, desc: e.target.value });
+    setArticleDetails({ ...articleDetails, title: e.target.value });
   };
   const handleCategChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setBookDetails({ ...bookDetails, categ: e.target.value });
+    setArticleDetails({ ...articleDetails, categ: e.target.value });
   };
   const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBookDetails({ ...bookDetails, img: e.target.value });
+    setArticleDetails({ ...articleDetails, img: e.target.value });
   };
 
   //Add new article function
   const addArticle = async () => {
     if (
-      bookDetails.body === "" ||
-      bookDetails.title === "" ||
-      bookDetails.desc === "" ||
-      bookDetails.categ === ""
+      articleDetails.body === "" ||
+      articleDetails.title === "" ||
+      articleDetails.categ === ""
     ) {
       alert("Enter appropriate values");
       return;
     }
-
-    alert("Submitted");
     setOpenLoader(true);
+
+    axios
+      .post("http://localhost:5000/article", {
+        title: articleDetails.title,
+        body: articleDetails.body,
+        category: articleDetails.categ,
+        image: articleDetails.img,
+        authorName: user.name,
+        authorId: user.email,
+      })
+      .then((res) => {
+        console.log(res);
+        setOpenLoader(false);
+        navigate("/articles");
+      })
+      .catch((err) => {
+        console.log(err);
+        setOpenLoader(false);
+      });
   };
 
   return (
@@ -80,20 +93,9 @@ const WriteArticle = () => {
             <input
               id="title"
               placeholder="The Art of Cooking"
-              value={bookDetails.title}
+              value={articleDetails.title}
               onChange={handleTitleChange}
               type="text"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="desc">Short Description:</label>
-            <input
-              id="desc"
-              placeholder="Cooking is art, this article with take you on how to improve your cookings"
-              type="text"
-              value={bookDetails.desc}
-              onChange={handleDescChange}
             />
           </div>
 
@@ -131,7 +133,7 @@ const WriteArticle = () => {
           <div className="h-[300px] md:h-[70vh] w-full">
             <ReactQuill
               style={{ height: "100%" }}
-              value={bookDetails.body}
+              value={articleDetails.body}
               onChange={handleEditorChange}
             />
           </div>

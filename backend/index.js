@@ -37,11 +37,10 @@ app.get("/articles/:id", (req, res) => {
     });
 });
 
-app.post("/add", (req, res) => {
+app.post("/article", (req, res) => {
   const article = new Article({
     title: req.body.title,
     body: req.body.body,
-    author: req.body.author,
     category: req.body.category,
     image: req.body.image,
     authorName: req.body.authorName,
