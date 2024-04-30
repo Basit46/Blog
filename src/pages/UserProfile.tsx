@@ -5,6 +5,7 @@ import { useArticleContext } from "../context/articlesContext";
 import profileImg from "../assets/profile.jpg";
 import { motion } from "framer-motion";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const UserProfile = () => {
       .delete(`http://localhost:5000/articles/${id}`)
       .then(async () => {
         await fetchData();
-        alert("Deleted");
+        toast("Deleted");
       })
       .catch((err) => {
         console.log(err);

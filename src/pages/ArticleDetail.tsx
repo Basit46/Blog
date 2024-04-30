@@ -27,12 +27,14 @@ const ArticleDetail = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 1 }}
     >
-      <div className="w-full h-[250px] md:h-[400px]">
-        <img
-          className="h-full w-full object-cover object-top"
-          src={articleToView?.image}
-          alt="article_img"
-        />
+      <div className="w-full h-[250px] md:h-[400px] bg-[tomato]">
+        {articleToView?.image && (
+          <img
+            className="h-full w-full object-cover object-top"
+            src={articleToView.image}
+            alt="article_img"
+          />
+        )}
       </div>
       <div className="mt-[20px] px-[20px] md:px-[80px] pb-[50px]">
         <div className="mb-[30px] flex flex-col xmd:flex-row gap-y-[10px] xmd:gap-y-[0px] justify-between ">
@@ -42,14 +44,11 @@ const ArticleDetail = () => {
             </h1>
             <div className="mt-[20px] flex items-center gap-[10px]">
               <div className="flex items-center">
-                <div className="h-[30px] w-[30px] rounded-full bg-[grey] mr-[5px]"></div>
-                <p className="font-semibold text-[1.3rem] leading-none">
-                  {articleToView?.authorName}
-                </p>
+                <p className="">{articleToView?.authorName}</p>
               </div>
               |
               <p className="opacity-90 text-[0.8rem]">
-                {articleToView?.createdAt}
+                {new Date(articleToView?.createdAt).toLocaleDateString()}
               </p>
             </div>
           </div>

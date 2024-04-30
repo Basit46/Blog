@@ -5,9 +5,9 @@ import Navbar from "./components/Navbar";
 import WriteArticle from "./pages/WriteArticle";
 import UserProfile from "./pages/UserProfile";
 import ArticleDetail from "./pages/ArticleDetail";
-import SignUp from "./pages/SignUp";
-import SignIn from "./pages/SignIn";
 import LoadingSpinner from "./components/LoadingSpinner";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -19,9 +19,9 @@ function App() {
         <Route path="/articles/:id" element={<ArticleDetail />} />
         <Route path="/write" element={<WriteArticle />} />
         <Route path="/profile" element={<UserProfile />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/signin" element={<SignIn />} />
       </Routes>
+
+      <ToastContainer autoClose={3000} />
       <LoadingSpinner />
     </div>
   );

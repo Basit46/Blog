@@ -6,16 +6,17 @@ import { useAuthContext } from "../context/authContext";
 import { useArticleContext } from "../context/articlesContext";
 import { motion } from "framer-motion";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const categories = ["Design", "Food", "Politics", "Sport", "Others"];
 
 const WriteArticle = () => {
   const navigate = useNavigate();
 
-  //Global states
   const { user } = useAuthContext();
   const { setOpenLoader, fetchData } = useArticleContext();
 
+  //Reroute if user is not signed in
   useEffect(() => {
     if (user.id == null) {
       navigate("/articles");
@@ -31,11 +32,46 @@ const WriteArticle = () => {
     img: "",
   });
 
+  //Add new article function
+  const addArticle = async (e: any) => {
+    e.preventDefault();
+    if (
+      articleDetails.body === "" ||
+      articleDetails.title === "" ||
+      articleDetails.categ === ""
+    ) {
+      toast("Enter appropriate values");
+      return;
+    }
+    setOpenLoader(true);
+
+    const article = {
+      title: articleDetails.title,
+      body: articleDetails.body,
+      category: articleDetails.categ,
+      image: articleDetails.img,
+      authorName: user.name,
+      authorId: user.id,
+    };
+
+    axios
+      .post("http://localhost:5000/articles", article)
+      .then(async () => {
+        await fetchData();
+        setOpenLoader(false);
+        navigate("/articles");
+        toast("Article Added");
+      })
+      .catch((err) => {
+        console.log(err);
+        setOpenLoader(false);
+      });
+  };
+
   //State change handler functions
   const handleEditorChange = (value: string) => {
     setArticleDetails({ ...articleDetails, body: value });
   };
-
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setArticleDetails({ ...articleDetails, title: e.target.value });
   };
@@ -46,47 +82,16 @@ const WriteArticle = () => {
     setArticleDetails({ ...articleDetails, img: e.target.value });
   };
 
-  //Add new article function
-  const addArticle = async () => {
-    if (
-      articleDetails.body === "" ||
-      articleDetails.title === "" ||
-      articleDetails.categ === ""
-    ) {
-      alert("Enter appropriate values");
-      return;
-    }
-    setOpenLoader(true);
-
-    axios
-      .post("http://localhost:5000/article", {
-        title: articleDetails.title,
-        body: articleDetails.body,
-        category: articleDetails.categ,
-        image: articleDetails.img,
-        authorName: user.name,
-        authorId: user.id,
-      })
-      .then(async () => {
-        await fetchData();
-        setOpenLoader(false);
-        navigate("/articles");
-      })
-      .catch((err) => {
-        console.log(err);
-        setOpenLoader(false);
-      });
-  };
-
   return (
-    <motion.div
+    <motion.form
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 1 }}
+      onSubmit={addArticle}
       className="create-page px-[20px] md:px-[40px] py-[40px]"
     >
-      <div className="h-fit w-full flex flex-col lg:flex-row gap-[30px]">
+      <div className="h-fit w-full flex flex-col lg:flex-row gap-[30px] lg:justify-between">
         <div className="w-full md:w-[60%] lg:w-[33%] flex flex-col gap-[20px]">
           <div>
             <label htmlFor="title">Title:</label>
@@ -128,9 +133,9 @@ const WriteArticle = () => {
           </div>
         </div>
 
-        <div className="lg:flex-1">
+        <div className="lg:w-[60%]">
           <label htmlFor="">Add Content:</label>
-          <div className="h-[300px] md:h-[70vh] w-full">
+          <div className="h-[300px] md:h-[50vh] w-full">
             <ReactQuill
               style={{ height: "100%" }}
               value={articleDetails.body}
@@ -142,11 +147,12 @@ const WriteArticle = () => {
 
       <button
         onClick={addArticle}
+        type="submit"
         className="mt-[90px] w-fit px-[30px] mx-auto bg-[green] hover:bg-white active:bg-[red] hover:border-[2px] hover:border-[green] hover:text-[green] rounded-[10px] text-white py-[10px] text-[1.5rem] flex justify-center items-center gap-[5px] "
       >
         ADD ARTICLE
       </button>
-    </motion.div>
+    </motion.form>
   );
 };
 

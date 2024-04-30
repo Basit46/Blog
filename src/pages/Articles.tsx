@@ -48,7 +48,7 @@ const Articles = () => {
             onClick={() => setSelectedCateg(category)}
             className={`${
               selectedCateg === category && "bg-black text-white"
-            } border-black border-[2px] md:mb-[10px] inline md:block  px-[15px] py-[5px] text-[1.1rem] cursor-pointer`}
+            } border-black border-[2px] md:mb-[10px] inline md:block w-[100px] py-[5px] text-[1.1rem] cursor-pointer`}
           >
             {category}
           </button>
