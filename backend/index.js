@@ -57,6 +57,18 @@ app.post("/article", (req, res) => {
     });
 });
 
+app.delete("/articles/:id", (req, res) => {
+  const id = req.params.id;
+
+  Article.findByIdAndDelete(id)
+    .then((article) => {
+      res.status(200).json(article);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message }); // Handle any errors
+    });
+});
+
 mongoose
   .connect(process.env.mongoDBURL)
   .then(() => {

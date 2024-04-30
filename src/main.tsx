@@ -2,12 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import AuthContextProvider from "./context/authContext.tsx";
 import ArticleContextProvider from "./context/articlesContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <HashRouter>
+  <BrowserRouter>
     <AuthContextProvider>
       <ArticleContextProvider>
         <React.StrictMode>
@@ -15,5 +15,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         </React.StrictMode>
       </ArticleContextProvider>
     </AuthContextProvider>
-  </HashRouter>
+  </BrowserRouter>
 );

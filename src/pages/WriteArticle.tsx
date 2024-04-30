@@ -14,7 +14,7 @@ const WriteArticle = () => {
 
   //Global states
   const { user } = useAuthContext();
-  const { setOpenLoader } = useArticleContext();
+  const { setOpenLoader, fetchData } = useArticleContext();
 
   useEffect(() => {
     if (user.id == null) {
@@ -65,10 +65,10 @@ const WriteArticle = () => {
         category: articleDetails.categ,
         image: articleDetails.img,
         authorName: user.name,
-        authorId: user.email,
+        authorId: user.id,
       })
-      .then((res) => {
-        console.log(res);
+      .then(async () => {
+        await fetchData();
         setOpenLoader(false);
         navigate("/articles");
       })

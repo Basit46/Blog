@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 import { useArticleContext } from "../context/articlesContext";
 import profileImg from "../assets/profile.jpg";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 const UserProfile = () => {
   const navigate = useNavigate();
   const { user } = useAuthContext();
-  const { articles } = useArticleContext();
+  const { articles, fetchData } = useArticleContext();
 
   const [userArticles, setUserArticles] = useState<any[] | undefined>();
 
@@ -21,7 +22,19 @@ const UserProfile = () => {
 
   useEffect(() => {
     setUserArticles(articles.filter((article) => article.authorId == user.id));
-  }, []);
+  }, [user, articles]);
+
+  const handleDel = (id: string) => {
+    axios
+      .delete(`http://localhost:5000/articles/${id}`)
+      .then(async () => {
+        await fetchData();
+        alert("Deleted");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <motion.div
@@ -76,7 +89,10 @@ const UserProfile = () => {
               >
                 View
               </Link>
-              <button className="bg-[red] px-[10px] py-[5px] text-[0.8rem] text-white">
+              <button
+                onClick={() => handleDel(article._id)}
+                className="bg-[red] px-[10px] py-[5px] text-[0.8rem] text-white"
+              >
                 Delete
               </button>
             </li>
