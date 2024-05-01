@@ -42,8 +42,6 @@ const ArticleContextProvider = ({
     fetchData();
   }, []);
 
-  console.log(articles);
-
   return (
     <ArticleContext.Provider
       value={{ articles, openLoader, setOpenLoader, fetchData }}
