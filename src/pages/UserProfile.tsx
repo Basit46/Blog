@@ -27,7 +27,7 @@ const UserProfile = () => {
 
   const handleDel = (id: string) => {
     axios
-      .delete(`http://localhost:5000/articles/${id}`)
+      .delete(`https://basit-blog-server.vercel.app/articles/${id}`)
       .then(async () => {
         await fetchData();
         toast("Deleted");

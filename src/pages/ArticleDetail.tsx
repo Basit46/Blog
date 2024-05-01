@@ -12,7 +12,7 @@ const ArticleDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/articles/${id}`)
+      .get(`https://basit-blog-server.vercel.app/articles/${id}`)
       .then((res) => setArticleToView(res.data))
       .catch((err) => console.log(err));
   }, []);

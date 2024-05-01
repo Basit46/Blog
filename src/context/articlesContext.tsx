@@ -33,7 +33,7 @@ const ArticleContextProvider = ({
 
   const fetchData = async () => {
     axios
-      .get("http://localhost:5000/articles")
+      .get("https://basit-blog-server.vercel.app/articles")
       .then((res) => setArticles(res.data))
       .catch((err) => console.log(err));
   };
