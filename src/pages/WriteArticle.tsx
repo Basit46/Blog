@@ -55,7 +55,7 @@ const WriteArticle = () => {
     };
 
     axios
-      .post("http://localhost:5000/articles", article)
+      .post("https://basit-blog-server.vercel.app/articles", article)
       .then(async () => {
         await fetchData();
         setOpenLoader(false);
