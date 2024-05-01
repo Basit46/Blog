@@ -11,11 +11,12 @@ const PORT = process.env.PORT || 5001;
 //Middlewares
 app.use(cors());
 app.use(express.json());
-app.use("/articles", articleRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello from server");
 });
+
+app.use("/articles", articleRouter);
 
 mongoose
   .connect(process.env.mongoDBURL)
