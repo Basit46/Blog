@@ -9,12 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 //Middlewares
-const corsOptions = {
-  origin: "https://verso-blog.vercel.app",
-};
-
-app.use(cors(corsOptions));
-
+app.use(cors());
 app.use(express.json());
 app.use("/articles", articleRouter);
 
